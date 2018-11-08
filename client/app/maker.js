@@ -33,10 +33,10 @@ const DeckForm = (props) => {
     );
 };
 
-const CardSearchBar = () => {
+const CardSearchBar = (props) => {
     return (
         <div className="searchBarContainer">
-            <input type="text" id="searchBar" onInput={findCards} name="search" placeholder="Search cards here" />
+            <input type="text" id="searchBar" onInput={findCards} name="search" placeholder={props.placeholder} />
         </div>
     );
 };
@@ -119,7 +119,7 @@ const setup = function(csrf) {
     );
     
     ReactDOM.render(
-        <CardSearchBar />, document.querySelector("#cardSearchBar")
+        <CardSearchBar placeholder={["Search a card by name"]} />, document.querySelector("#cardSearchBar")
     );
     
     ReactDOM.render(
