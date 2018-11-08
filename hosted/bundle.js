@@ -12,7 +12,7 @@ var handleDeck = function handleDeck(e) {
         return false;
     }
 
-    if (cards.length == 0) {
+    if (Object.keys(cards).length === 0) {
         handleError("RAWR! Deck needs cards");
         return false;
     }
@@ -62,7 +62,7 @@ var CardList = function CardList(props) {
         );
     }
 
-    var deckNodes = props.cards.map(function (card) {
+    var cardNodes = props.cards.map(function (card) {
         return React.createElement(
             "div",
             { className: "card", onclick: addCard(card.imageURL) },
@@ -72,8 +72,8 @@ var CardList = function CardList(props) {
 
     return React.createElement(
         "div",
-        { className: "deckList" },
-        deckNodes
+        { className: "cardList" },
+        cardNodes
     );
 };
 
@@ -119,7 +119,7 @@ var loadDecksFromServer = function loadDecksFromServer() {
 
 var loadCardsFromServer = function loadCardsFromServer(name) {
     sendAjax('GET', '/getCards', name, function (data) {
-        ReactDOM.render(React.createElement(CardList, { decks: data.cards }), document.querySelector("#searchCards"));
+        ReactDOM.render(React.createElement(CardList, { cards: [data.cards] }), document.querySelector("#searchCards"));
     });
 };
 
@@ -127,6 +127,8 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DeckForm, { csrf: csrf }), document.querySelector("#makeDeck"));
 
     ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#searchCardsBar"));
+
+    ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#searchCards"));
 
     ReactDOM.render(React.createElement(DeckList, { decks: [] }), document.querySelector("#decks"));
 

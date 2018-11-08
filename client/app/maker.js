@@ -10,7 +10,7 @@ const handleDeck = (e) => {
         return false;
     }
     
-    if(cards.length == 0) {
+    if(Object.keys(cards).length === 0) {
         handleError("RAWR! Deck needs cards");
         return false;
     }
@@ -54,7 +54,7 @@ const CardList = function(props) {
         );
     }
     
-    const deckNodes = props.cards.map(function(card) {
+    const cardNodes = props.cards.map(function(card) {
         return (
             <div className="card" onclick={addCard(card.imageURL)}>
                 <img src={card.imageURL} alt={card.name} />
@@ -63,8 +63,8 @@ const CardList = function(props) {
     });
     
     return (
-        <div className="deckList">
-            {deckNodes}
+        <div className="cardList">
+            {cardNodes}
         </div>
     );
 };
@@ -104,7 +104,7 @@ const loadDecksFromServer = () => {
 const loadCardsFromServer = (name) => {
     sendAjax('GET', '/getCards', name, (data) => {
         ReactDOM.render(
-            <CardList decks={data.cards} />, document.querySelector("#searchCards")
+            <CardList cards={[data.cards]} />, document.querySelector("#searchCards")
         );
     });
 };
@@ -116,6 +116,10 @@ const setup = function(csrf) {
     
     ReactDOM.render(
         <cardSearchBar />, document.querySelector("#searchCardsBar")
+    );
+    
+    ReactDOM.render(
+        <CardList cards={[]} />, document.querySelector("#searchCards")
     );
     
     ReactDOM.render(
