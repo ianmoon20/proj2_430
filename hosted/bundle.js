@@ -133,6 +133,7 @@ var loadCardsFromServer = function loadCardsFromServer(cardName) {
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DeckForm, { csrf: csrf }), document.querySelector("#makeDeck"));
 
+    //This search bar has a REACT error.
     /*ReactDOM.render(
         <CardSearchBar />, document.querySelector("#cardSearchBar")
     );*/
