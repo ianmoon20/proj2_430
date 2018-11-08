@@ -79,6 +79,8 @@ var CardList = function CardList(props) {
         );
     });
 
+    console.log(cardNodes);
+
     return React.createElement(
         "div",
         { className: "cardList" },
@@ -129,7 +131,7 @@ var loadDecksFromServer = function loadDecksFromServer() {
 };
 
 var loadCardsFromServer = function loadCardsFromServer(name) {
-    sendAjax('GET', '/getCards', name, function (data) {
+    sendAjax('GET', '/getCards', { name: name }, function (data) {
         console.log(data);
         ReactDOM.render(React.createElement(CardList, { cards: [data.cards] }), document.querySelector("#searchCards"));
     });
