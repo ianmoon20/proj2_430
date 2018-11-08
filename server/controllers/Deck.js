@@ -60,9 +60,10 @@ const getCards = (request, response) => {
   const req = request;
   const res = response;
 
-  const cardPromise = mtg.card.where({ name: `'${req.body.name}'` });
-
-  cardPromise.then((results) => res.json({ cards: results }));
+  mtg.card.where({ supertypes: 'legendary', subtypes: 'goblin' })
+  .then(cards => {
+    res.json({cards: cards[0].name}); // "Squee, Goblin Nabob"
+  });
 };
 
 module.exports.makerPage = makerPage;
