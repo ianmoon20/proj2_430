@@ -60,9 +60,11 @@ const getCards = (request, response) => {
   const req = request;
   const res = response;
 
-  mtg.card.where({ name: `'"${req.body.name}"'` })
+  mtg.card.where({ supertypes: 'legendary', subtypes: 'goblin' })
   .then(cards => {
-    res.json({cards: cards, request: req.body.name});
+    res.json({
+        cards: cards[0].name,
+        request: req,
   });
 };
 
