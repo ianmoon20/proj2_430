@@ -14,7 +14,7 @@ const DeckSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
-  deck: {
+  cards: {
     type: Object,
     required: true,
   },
@@ -31,7 +31,7 @@ const DeckSchema = new mongoose.Schema({
 
 DeckSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  deck: doc.deck,
+  cards: doc.cards,
 });
 
 DeckSchema.statics.findByOwner = (ownerId, callback) => {

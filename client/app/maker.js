@@ -10,8 +10,8 @@ const handleDeck = (e) => {
         return false;
     }
     
-    if($(cards.).val() == '') {
-        handleError("RAWR! Deck name is required");
+    if(cards.length == 0) {
+        handleError("RAWR! Deck needs cards");
         return false;
     }
     
@@ -57,7 +57,7 @@ const CardList = function(props) {
     const deckNodes = props.cards.map(function(card) {
         return (
             <div className="card" onclick={addCard(card.imageURL)}>
-                <img src={card.imageURL} alt={card.name}>
+                <img src={card.imageURL} alt={card.name} />
             </div>
         );
     });

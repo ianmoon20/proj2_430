@@ -1,86 +1,104 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var cards = {};
+
+var handleDeck = function handleDeck(e) {
     e.preventDefault();
 
     $("#domoMessage").animate({ width: 'hide' }, 350);
 
-    if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoLevel").val() == '') {
-        handleError("RAWR! All fields are required");
+    if ($("#deckName").val() == '') {
+        handleError("RAWR! Deck name is required");
         return false;
     }
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-        loadDomosFromServer();
+    if (cards.length == 0) {
+        handleError("RAWR! Deck needs cards");
+        return false;
+    }
+
+    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize(), function () {
+        loadDecksFromServer();
     });
 
     return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var DeckForm = function DeckForm(props) {
     return React.createElement(
         "form",
-        { id: "domoForm", onSubmit: handleDomo, name: "domoForm", action: "/maker", method: "POST", className: "domoForm" },
+        { id: "deckForm", onSubmit: handleDeck, name: "deckForm", action: "/maker", method: "POST", className: "deckForm" },
         React.createElement(
             "label",
             { htmlFor: "name" },
             "Name: "
         ),
-        React.createElement("input", { id: "domoName", type: "text", name: "name", placeholder: "Domo Name" }),
-        React.createElement(
-            "label",
-            { htmlFor: "age" },
-            "Age: "
-        ),
-        React.createElement("input", { id: "domoAge", type: "text", name: "age", placeholder: "Domo Age" }),
-        React.createElement(
-            "label",
-            { htmlFor: "level" },
-            "Level: "
-        ),
-        React.createElement("input", { id: "domoLevel", type: "text", name: "level", placeholder: "Domo Level (1-100)" }),
+        React.createElement("input", { id: "deckName", type: "text", name: "name", placeholder: "Deck Name" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
+        React.createElement("input", { className: "makeDeckSubmit", type: "submit", value: "Submit Deck" })
     );
 };
 
-var DomoList = function DomoList(props) {
-    if (props.domos.length === 0) {
+var cardSearchBar = function cardSearchBar() {
+    return React.createElement("input", { type: "text", id: "searchBar", oninput: findCards, name: "search", placeholder: "Search cards here" });
+};
+
+var findCards = function findCards() {
+    var searchBar = document.querySelector("#searchBar");
+
+    loadCardsFromServer({ name: searchBar.value });
+};
+
+var CardList = function CardList(props) {
+    if (props.cards.length === 0) {
         return React.createElement(
             "div",
-            { className: "domoList" },
+            { className: "cardList" },
             React.createElement(
                 "h3",
-                { className: "emptyDomo" },
-                "No Domos Yet"
+                { className: "emptyCards" },
+                "No Cards Found"
             )
         );
     }
 
-    var domoNodes = props.domos.map(function (domo) {
+    var deckNodes = props.cards.map(function (card) {
         return React.createElement(
             "div",
-            { key: domo._id, className: "domo" },
-            React.createElement("img", { src: "/assets/img/domoface.jpeg", alt: "domo face", className: "domoFace" }),
+            { className: "card", onclick: addCard(card.imageURL) },
+            React.createElement("img", { src: card.imageURL, alt: card.name })
+        );
+    });
+
+    return React.createElement(
+        "div",
+        { className: "deckList" },
+        deckNodes
+    );
+};
+
+var DeckList = function DeckList(props) {
+    if (props.decks.length === 0) {
+        return React.createElement(
+            "div",
+            { className: "deckList" },
             React.createElement(
                 "h3",
-                { className: "domoName" },
+                { className: "emptyDeck" },
+                "No Decks Yet"
+            )
+        );
+    }
+
+    var deckNodes = props.decks.map(function (deck) {
+        return React.createElement(
+            "div",
+            { key: deck._id, className: "deck", onclick: displayDeck("cards", deck.cards) },
+            React.createElement(
+                "h3",
+                { className: "deckName" },
                 "Name: ",
-                domo.name,
-                " "
-            ),
-            React.createElement(
-                "h3",
-                { className: "domoAge" },
-                " Age: ",
-                domo.age,
-                " "
-            ),
-            React.createElement(
-                "h3",
-                { className: "domoLevel" },
-                " Level: ",
-                domo.level,
+                deck.name,
                 " "
             )
         );
@@ -88,23 +106,31 @@ var DomoList = function DomoList(props) {
 
     return React.createElement(
         "div",
-        { className: "domoList" },
-        domoNodes
+        { className: "deckList" },
+        deckNodes
     );
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-    sendAjax('GET', '/getDomos', null, function (data) {
-        ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector("#domos"));
+var loadDecksFromServer = function loadDecksFromServer() {
+    sendAjax('GET', '/getDecks', null, function (data) {
+        ReactDOM.render(React.createElement(DeckList, { decks: data.decks }), document.querySelector("#decks"));
+    });
+};
+
+var loadCardsFromServer = function loadCardsFromServer(name) {
+    sendAjax('GET', '/getCards', name, function (data) {
+        ReactDOM.render(React.createElement(CardList, { decks: data.cards }), document.querySelector("#searchCards"));
     });
 };
 
 var setup = function setup(csrf) {
-    ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector("#makeDomo"));
+    ReactDOM.render(React.createElement(DeckForm, { csrf: csrf }), document.querySelector("#makeDeck"));
 
-    ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector("#domos"));
+    ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#searchCardsBar"));
 
-    loadDomosFromServer();
+    ReactDOM.render(React.createElement(DeckList, { decks: [] }), document.querySelector("#decks"));
+
+    loadDecksFromServer();
 };
 
 var getToken = function getToken() {

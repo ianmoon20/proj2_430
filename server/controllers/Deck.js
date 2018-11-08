@@ -3,7 +3,7 @@ const models = require('../models');
 const Deck = models.Deck;
 const mtg = require('mtgsdk');
 
-const deckPage = (req, res) => {
+const makerPage = (req, res) => {
   Deck.DeckModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -15,13 +15,13 @@ const deckPage = (req, res) => {
 };
 
 const makeDeck = (req, res) => {
-  if (req.body.decklist.length == 0 || !req.body.name) {
+  if (req.body.decklist.length === 0 || !req.body.name) {
     return res.status(400).json({ error: 'RAWR! Deck Name and cards are required' });
   }
-    
+
   const deckData = {
     name: req.body.name,
-    deck: req.body.decklist,
+    cards: req.body.cards,
     owner: req.session.account._id,
   };
 
@@ -60,11 +60,12 @@ const getCards = (request, response) => {
   const req = request;
   const res = response;
 
-  mtg.card.where({ name: req.body.name }).then(cards => {
-        return res.json({ cardList: cards });
-  });
+  console.log(req.body);
+
+  mtg.card.where({ name: req.body.name }).then(cards => res.json({ cards }));
 };
 
 module.exports.makerPage = makerPage;
 module.exports.getDecks = getDecks;
+module.exports.getCards = getCards;
 module.exports.make = makeDeck;
