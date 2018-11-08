@@ -59,16 +59,14 @@ const getDecks = (request, response) => {
 const getCards = (request, response) => {
   const req = request;
   const res = response;
+    // For some reason this doesn't want to work as decribed here https://github.com/MagicTheGathering/mtg-sdk-javascript
+    // Also tried looking at the API here https://docs.magicthegathering.io/#advancedcards_get_by_name
 
-    //For some reason this doesn't want to work as decribed here https://github.com/MagicTheGathering/mtg-sdk-javascript
-    //Also tried looking at the API here https://docs.magicthegathering.io/#advancedcards_get_by_name
-    
-    
-    //This should give all the cards that are legendary and a goblin (Not using input yet as the test case isn't working)
-  mtg.card.where({ supertypes: 'legendary', subtypes: 'goblin' })
+    // This should give all the cards that include the name but is instead returning nothing
+  mtg.card.where({ name: `${req.body.name}` })
   .then(cards => {
     console.log(cards);
-    res.json({ cards: cards });
+    res.json({ cards });
   });
 };
 
