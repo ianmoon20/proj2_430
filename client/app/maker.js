@@ -118,9 +118,9 @@ const setup = function(csrf) {
         <DeckForm csrf={csrf} />, document.querySelector("#makeDeck")
     );
     
-    ReactDOM.render(
+    /*ReactDOM.render(
         <CardSearchBar />, document.querySelector("#cardSearchBar")
-    );
+    );*/
     
     ReactDOM.render(
         <CardList cards={[]} />, document.querySelector("#searchCards")
