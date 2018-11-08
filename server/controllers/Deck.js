@@ -52,7 +52,7 @@ const getDecks = (request, response) => {
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ deck: docs });
+    return res.json({ decks: docs });
   });
 };
 
@@ -62,7 +62,7 @@ const getCards = (request, response) => {
 
   console.log(req.body);
 
-  mtg.card.where({ name: req.body.name }).then(cards => res.json({ cards }));
+  mtg.card.where({ name: req.body.name }).then(cards => res.json({ cards: cards }));
 };
 
 module.exports.makerPage = makerPage;
