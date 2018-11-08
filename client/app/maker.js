@@ -36,7 +36,7 @@ const DeckForm = (props) => {
 const CardSearchBar = () => {
     return (
         <div className="searchBarContainer">
-            <input type="text" id="searchBar" oninput={findCards} name="search" placeholder="Search cards here" />
+            <input type="text" id="searchBar" onInput={findCards} name="search" placeholder="Search cards here" />
         </div>
     );
 };
@@ -58,7 +58,7 @@ const CardList = function(props) {
     
     const cardNodes = props.cards.map(function(card) {
         return (
-            <div className="card" onclick={addCard(card.imageURL)}>
+            <div className="card" onClick={addCard(card.imageURL)}>
                 <img src={card.imageURL} alt={card.name} />
             </div>
         );
@@ -129,6 +129,9 @@ const setup = function(csrf) {
     ReactDOM.render(
         <DeckList decks={[]} />, document.querySelector("#decks")
     );
+    
+    //Test card
+    loadCardsFromServer("One with Nothing");
     
     loadDecksFromServer();
 };

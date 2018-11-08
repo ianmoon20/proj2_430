@@ -43,7 +43,7 @@ var CardSearchBar = function CardSearchBar() {
     return React.createElement(
         "div",
         { className: "searchBarContainer" },
-        React.createElement("input", { type: "text", id: "searchBar", oninput: findCards, name: "search", placeholder: "Search cards here" })
+        React.createElement("input", { type: "text", id: "searchBar", onInput: findCards, name: "search", placeholder: "Search cards here" })
     );
 };
 
@@ -69,7 +69,7 @@ var CardList = function CardList(props) {
     var cardNodes = props.cards.map(function (card) {
         return React.createElement(
             "div",
-            { className: "card", onclick: addCard(card.imageURL) },
+            { className: "card", onClick: addCard(card.imageURL) },
             React.createElement("img", { src: card.imageURL, alt: card.name })
         );
     });
@@ -137,6 +137,9 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#searchCards"));
 
     ReactDOM.render(React.createElement(DeckList, { decks: [] }), document.querySelector("#decks"));
+
+    //Test card
+    loadCardsFromServer("One with Nothing");
 
     loadDecksFromServer();
 };
