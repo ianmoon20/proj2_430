@@ -119,7 +119,7 @@ const setup = function(csrf) {
     );
     
     ReactDOM.render(
-        <cardSearchBar />, document.querySelector("#makeDeck")
+        <cardSearchBar />, document.querySelector("#cardSearchBar")
     );
     
     ReactDOM.render(

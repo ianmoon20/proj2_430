@@ -132,7 +132,7 @@ var loadCardsFromServer = function loadCardsFromServer(name) {
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DeckForm, { csrf: csrf }), document.querySelector("#makeDeck"));
 
-    ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#makeDeck"));
+    ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#cardSearchBar"));
 
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#searchCards"));
 
