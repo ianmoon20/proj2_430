@@ -47,6 +47,10 @@ var CardSearchBar = function CardSearchBar(props) {
     );
 };
 
+var addCard = function addCard(cardImage) {
+    console.log(cardImage);
+};
+
 var findCards = function findCards() {
     var searchBar = document.querySelector("#searchBar");
 
