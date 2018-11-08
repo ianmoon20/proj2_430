@@ -39,7 +39,7 @@ DeckSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return DeckModel.find(search).select('name age level').exec(callback);
+  return DeckModel.find(search).select('name cards').exec(callback);
 };
 
 DeckModel = mongoose.model('Deck', DeckSchema);

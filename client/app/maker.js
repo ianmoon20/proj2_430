@@ -70,6 +70,7 @@ const CardList = function(props) {
 };
 
 const DeckList = function(props) {
+    console.log(props);
     if(props.decks.length === 0) {
         return (
             <div className="deckList">

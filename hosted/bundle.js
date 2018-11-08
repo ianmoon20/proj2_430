@@ -78,6 +78,7 @@ var CardList = function CardList(props) {
 };
 
 var DeckList = function DeckList(props) {
+    console.log(props);
     if (props.decks.length === 0) {
         return React.createElement(
             "div",
