@@ -47,9 +47,7 @@ var CardSearchBar = function CardSearchBar(props) {
     );
 };
 
-var addCard = function addCard(cardImage) {
-    console.log(cardImage);
-};
+var addCard = function addCard(cardImage) {};
 
 var findCards = function findCards() {
     var searchBar = document.querySelector("#searchBar");
@@ -58,7 +56,6 @@ var findCards = function findCards() {
 };
 
 var CardList = function CardList(props) {
-    console.log(props);
     if (props.cards.length === 0) {
         return React.createElement(
             "div",
@@ -79,8 +76,6 @@ var CardList = function CardList(props) {
         );
     });
 
-    console.log(cardNodes);
-
     return React.createElement(
         "div",
         { className: "cardList" },
@@ -89,7 +84,6 @@ var CardList = function CardList(props) {
 };
 
 var DeckList = function DeckList(props) {
-    console.log(props);
     if (props.decks.length === 0) {
         return React.createElement(
             "div",
@@ -125,7 +119,6 @@ var DeckList = function DeckList(props) {
 
 var loadDecksFromServer = function loadDecksFromServer() {
     sendAjax('GET', '/getDecks', null, function (data) {
-        console.log(data);
         ReactDOM.render(React.createElement(DeckList, { decks: data.decks }), document.querySelector("#decks"));
     });
 };

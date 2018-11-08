@@ -42,7 +42,7 @@ const CardSearchBar = (props) => {
 };
 
 const addCard = (cardImage) => {
-    console.log(cardImage);
+    
 };
 
 const findCards = () => {
@@ -52,7 +52,6 @@ const findCards = () => {
 };
 
 const CardList = function(props) {
-    console.log(props);
     if(props.cards.length === 0) {
         return (
             <div className="cardList">
@@ -69,8 +68,6 @@ const CardList = function(props) {
         );
     });
     
-    console.log(cardNodes);
-    
     return (
         <div className="cardList">
             {cardNodes}
@@ -79,7 +76,6 @@ const CardList = function(props) {
 };
 
 const DeckList = function(props) {
-    console.log(props);
     if(props.decks.length === 0) {
         return (
             <div className="deckList">
@@ -105,7 +101,6 @@ const DeckList = function(props) {
 
 const loadDecksFromServer = () => {
     sendAjax('GET', '/getDecks', null, (data) => {
-        console.log(data);
         ReactDOM.render(
             <DeckList decks={data.decks} />, document.querySelector("#decks")
         );
