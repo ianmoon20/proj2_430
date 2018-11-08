@@ -123,8 +123,8 @@ var loadDecksFromServer = function loadDecksFromServer() {
     });
 };
 
-var loadCardsFromServer = function loadCardsFromServer(name) {
-    sendAjax('GET', '/getCards', { name: name }, function (data) {
+var loadCardsFromServer = function loadCardsFromServer(cardName) {
+    sendAjax('GET', '/getCards', { name: cardName }, function (data) {
         console.log(data);
         ReactDOM.render(React.createElement(CardList, { cards: [data.cards] }), document.querySelector("#searchCards"));
     });
@@ -142,7 +142,7 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DeckList, { decks: [] }), document.querySelector("#decks"));
 
     //Test card
-    loadCardsFromServer("One with Nothing");
+    loadCardsFromServer("One");
 
     loadDecksFromServer();
 };

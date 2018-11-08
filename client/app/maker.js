@@ -107,8 +107,8 @@ const loadDecksFromServer = () => {
     });
 };
 
-const loadCardsFromServer = (name) => {
-    sendAjax('GET', '/getCards', {name: name}, (data) => {
+const loadCardsFromServer = (cardName) => {
+    sendAjax('GET', '/getCards', {name: cardName}, (data) => {
         console.log(data);
         ReactDOM.render(
             <CardList cards={[data.cards]} />, document.querySelector("#searchCards")
@@ -134,7 +134,7 @@ const setup = function(csrf) {
     );
     
     //Test card
-    loadCardsFromServer("One with Nothing");
+    loadCardsFromServer("One");
     
     loadDecksFromServer();
 };
