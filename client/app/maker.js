@@ -52,6 +52,7 @@ const findCards = () => {
 };
 
 const CardList = function(props) {
+    console.log(props);
     if(props.cards.length === 0) {
         return (
             <div className="cardList">
@@ -111,6 +112,7 @@ const loadDecksFromServer = () => {
 
 const loadCardsFromServer = (name) => {
     sendAjax('GET', '/getCards', name, (data) => {
+        console.log(data);
         ReactDOM.render(
             <CardList cards={[data.cards]} />, document.querySelector("#searchCards")
         );

@@ -58,6 +58,7 @@ var findCards = function findCards() {
 };
 
 var CardList = function CardList(props) {
+    console.log(props);
     if (props.cards.length === 0) {
         return React.createElement(
             "div",
@@ -129,6 +130,7 @@ var loadDecksFromServer = function loadDecksFromServer() {
 
 var loadCardsFromServer = function loadCardsFromServer(name) {
     sendAjax('GET', '/getCards', name, function (data) {
+        console.log(data);
         ReactDOM.render(React.createElement(CardList, { cards: [data.cards] }), document.querySelector("#searchCards"));
     });
 };
