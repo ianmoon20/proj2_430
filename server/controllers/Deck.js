@@ -60,7 +60,9 @@ const getCards = (request, response) => {
   const req = request;
   const res = response;
 
-  mtg.card.where({ name: `'${req.body.name}'` }).then(results => return res.json({ cards: results }));
+  const cardPromise = mtg.card.where({ name: `'${req.body.name}'` });
+
+  cardPromise.then((results) => res.json({ cards: results }));
 };
 
 module.exports.makerPage = makerPage;
