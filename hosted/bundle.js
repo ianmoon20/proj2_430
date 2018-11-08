@@ -40,7 +40,11 @@ var DeckForm = function DeckForm(props) {
 };
 
 var cardSearchBar = function cardSearchBar() {
-    return React.createElement("input", { type: "text", id: "searchBar", oninput: findCards, name: "search", placeholder: "Search cards here" });
+    return React.createElement(
+        "div",
+        { className: "searchBarContainer" },
+        React.createElement("input", { type: "text", id: "searchBar", oninput: findCards, name: "search", placeholder: "Search cards here" })
+    );
 };
 
 var findCards = function findCards() {
@@ -128,7 +132,7 @@ var loadCardsFromServer = function loadCardsFromServer(name) {
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DeckForm, { csrf: csrf }), document.querySelector("#makeDeck"));
 
-    ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#searchCardsBar"));
+    ReactDOM.render(React.createElement("cardSearchBar", null), document.querySelector("#makeDeck"));
 
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#searchCards"));
 
