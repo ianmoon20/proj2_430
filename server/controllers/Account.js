@@ -105,6 +105,42 @@ const signup = (request, response) => {
   });
 };
 
+const changePassword = (req, res) => {
+  if (!req.body.password3 || !req.body.password2) {
+    return res.status(400).json({ error: 'RAWR! All fields required!' });
+  }
+  if (req.body.password2 !== req.body.password3) {
+    return res.status(400).json({ error: 'RAWR! Incorrect password confirmation!' });
+  }
+
+  /* Account.AccountModel.findOne({username: req.session.account.username}).exec((err, result) => {
+      if(result) {
+          console.log(result);
+          result.password = Account.AccountModel.generateHash(req.body.password3, (salt, hash) => {
+                return hash;
+          });
+          result.save((err) => {
+                console.log(result.password);
+             if(err) {
+                 console.log(err);
+             }
+          });
+      }
+  })*/
+
+  Account.AccountModel.update(
+      { username: req.session.account.username },
+    { password: Account.AccountModel.generateHash(req.body.password3, (salt, hash) => hash) }
+  ).then((docs) => {
+    if (docs) {
+      return res.status(200);
+    }
+    return res.status(500);
+  });
+
+  return res.status(200);
+};
+
 module.exports.loginPage = loginPage;
 module.exports.statsPage = statsPage;
 module.exports.getStats = getStats;
@@ -112,3 +148,4 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.changePassword = changePassword;

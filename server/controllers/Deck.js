@@ -14,8 +14,12 @@ const makerPage = (req, res) => {
   });
 };
 
+const createPage = (req, res) => {
+  res.render('create', { csrfToken: req.csrfToken() });
+};
+
 const makeDeck = (req, res) => {
-  if (req.body.decklist.length === 0 || !req.body.name) {
+  if (req.body.cards.length === 0 || !req.body.name) {
     return res.status(400).json({ error: 'RAWR! Deck Name and cards are required' });
   }
 
@@ -24,6 +28,8 @@ const makeDeck = (req, res) => {
     cards: req.body.cards,
     owner: req.session.account._id,
   };
+
+  console.log(deckData);
 
   const newDeck = new Deck.DeckModel(deckData);
 
@@ -59,18 +65,15 @@ const getDecks = (request, response) => {
 const getCards = (request, response) => {
   const req = request;
   const res = response;
-    // For some reason this doesn't want to work as decribed here https://github.com/MagicTheGathering/mtg-sdk-javascript
-    // Also tried looking at the API here https://docs.magicthegathering.io/#advancedcards_get_by_name
 
-    // This should give all the cards that include the name but is instead returning nothing
-  mtg.card.where({ name: `${req.body.name}` })
+  mtg.card.where({ name: `${req.query.name}` })
   .then(cards => {
-    console.log(cards);
     res.json({ cards });
   });
 };
 
 module.exports.makerPage = makerPage;
+module.exports.createPage = createPage;
 module.exports.getDecks = getDecks;
 module.exports.getCards = getCards;
 module.exports.make = makeDeck;

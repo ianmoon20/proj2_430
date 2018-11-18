@@ -1,93 +1,22 @@
-let cards = {};
-
 const handleDeck = (e) => {
-    e.preventDefault();
-    
-    $("#domoMessage").animate({width:'hide'}, 350);
-    
-    if($("#deckName").val() == '') {
-        handleError("RAWR! Deck name is required");
-        return false;
-    }
-    
-    if(Object.keys(cards).length === 0) {
-        handleError("RAWR! Deck needs cards");
-        return false;
-    }
-    
-    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize(), function() {
-        loadDecksFromServer();
-    });
-    
-    return false;
-};
-
-const DeckForm = (props) => {
-    return (
-        <form id="deckForm" onSubmit={handleDeck} name="deckForm" action="/maker" method="POST" className="deckForm">
-            <label htmlFor="name">Name: </label>
-            <input id="deckName" type="text" name="name" placeholder="Deck Name" />
-            <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="makeDeckSubmit" type="submit" value="Submit Deck" />
-        </form>
-    );
-};
-
-const CardSearchBar = (props) => {
-    return (
-        <div className="searchContainer">
-            <input type="text" id="searchBar" onInput={findCards} name="search" placeholder="Type here to search for cards" />
-        </div>
-    );
-};
-
-const addCard = (cardImage) => {
-    
-};
-
-const findCards = () => {
-    const searchBar = document.querySelector("#searchBar");
-    
-    loadCardsFromServer({name: searchBar.value});
-};
-
-const CardList = function(props) {
-    if(props.cards.length === 0) {
-        return (
-            <div className="cardList">
-                <h3 className="emptyCards">No Cards Found</h3>
-            </div>
-        );
-    }
-    
-    const cardNodes = props.cards.map(function(card) {
-        return (
-            <div className="card" onClick={addCard(card.imageURL)}>
-                <img src={card.imageURL} alt={card.name} />
-            </div>
-        );
-    });
-    
-    return (
-        <div className="cardList">
-            {cardNodes}
-        </div>
-    );
+    console.log(e.cards);
 };
 
 const DeckList = function(props) {
     if(props.decks.length === 0) {
         return (
-            <div className="deckList">
-                <h3 className="emptyDeck">No Decks Yet</h3>
+            <div className="container-fluid pt-3 rounded">
+                <div className="deckList row flex-row">
+                    <h3 className="emptyDeck">No decks made!</h3>
+                </div>
             </div>
         );
     }
     
     const deckNodes = props.decks.map(function(deck) {
         return (
-            <div key={deck._id} className="deck" onclick={displayDeck("cards", deck.cards)}>
-                <h3 className="deckName">Name: {deck.name} </h3>
+            <div key={deck._id} className="card col-xs-2" align="center">
+                <h3 className="deckName" onClick={() => handleDeck(deck)}>Name: {deck.name} </h3>
             </div>
         );
     });
@@ -99,43 +28,31 @@ const DeckList = function(props) {
     );
 };
 
-const loadDecksFromServer = () => {
-    sendAjax('GET', '/getDecks', null, (data) => {
-        ReactDOM.render(
-            <DeckList decks={data.decks} />, document.querySelector("#decks")
-        );
-    });
+const ButtonForm = (props) => {
+    return (
+        <form id="buttonForm" name="buttonForm" action="/create" method="GET" className="buttonForm">
+            <input className="createDeckSubmit formSubmit" type="submit" value="New Deck" />
+        </form>
+    );
 };
 
-const loadCardsFromServer = (cardName) => {
-    sendAjax('GET', '/getCards', {name: cardName}, (data) => {
+const loadDecksFromServer = () => {
+    sendAjax('GET', '/getDecks', null, (data) => {
         console.log(data);
         ReactDOM.render(
-            <CardList cards={[data.cards]} />, document.querySelector("#searchCards")
+            <DeckList decks={data.decks} />, document.querySelector("#deck")
         );
     });
 };
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <DeckForm csrf={csrf} />, document.querySelector("#makeDeck")
-    );
-    
-    //This search bar has a REACT error.
-    /*ReactDOM.render(
-        <CardSearchBar />, document.querySelector("#cardSearchBar")
-    );*/
-    
-    ReactDOM.render(
-        <CardList cards={[]} />, document.querySelector("#searchCards")
+        <ButtonForm csrf={csrf} />, document.querySelector("#createButton")
     );
     
     ReactDOM.render(
-        <DeckList decks={[]} />, document.querySelector("#decks")
+        <DeckList decks={[]} />, document.querySelector("#deck")
     );
-    
-    //Test card
-    loadCardsFromServer("One");
     
     loadDecksFromServer();
 };

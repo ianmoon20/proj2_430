@@ -3,8 +3,6 @@
 var handleLogin = function handleLogin(e) {
     e.preventDefault();
 
-    $("#domoMessage").animate({ width: 'hide' }, 350);
-
     if ($("#user").val() == '' || $("#pass").val == '') {
         handleError("RAWR! Username or password is empty");
         return false;
@@ -43,18 +41,18 @@ var LoginWindow = function LoginWindow(props) {
         { id: "loginForm", name: "loginForm", onSubmit: handleLogin, action: "/login", method: "POST", className: "mainForm" },
         React.createElement(
             "label",
-            { htmlFor: "username" },
-            "Username: "
+            { className: "sr-only", "for": "username" },
+            "Username:"
         ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
+        React.createElement("input", { className: "input", type: "text", name: "username", placeholder: "username", required: true }),
         React.createElement(
             "label",
-            { htmlFor: "pass" },
-            "Password: "
+            { className: "sr-only", "for": "pass" },
+            "Password:"
         ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+        React.createElement("input", { className: "input", type: "password", name: "pass", placeholder: "password", autocomplete: "current-password", required: true }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign In" })
+        React.createElement("input", { className: "formSubmit", type: "submit", value: "Log In" })
     );
 };
 
@@ -72,22 +70,22 @@ var SignupWindow = function SignupWindow(props) {
         { id: "signupForm", name: "signupForm", onSubmit: handleSignup, action: "/signup", method: "POST", className: "mainForm" },
         React.createElement(
             "label",
-            { htmlFor: "username" },
-            "Username: "
+            { className: "sr-only", "for": "username" },
+            "Username:"
         ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
+        React.createElement("input", { className: "input", type: "text", name: "username", placeholder: "username", required: true }),
         React.createElement(
             "label",
-            { htmlFor: "pass" },
-            "Password: "
+            { className: "sr-only", "for": "pass" },
+            "Password:"
         ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+        React.createElement("input", { className: "input", type: "password", name: "pass", placeholder: "password", autocomplete: "current-password", required: true }),
         React.createElement(
             "label",
-            { htmlFor: "pass" },
-            "Password: "
+            { className: "sr-only", "for": "pass2" },
+            "Confirm Password:"
         ),
-        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "retype password" }),
+        React.createElement("input", { className: "input", type: "password", name: "pass2", placeholder: "retype password", required: true }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
     );
@@ -133,13 +131,18 @@ var redirect = function redirect(response) {
     window.location = response.redirect;
 };
 
-var sendAjax = function sendAjax(type, action, data, success) {
+var sendAjax = function sendAjax(type, action, data, success, process) {
+    var processInfo = true;
+    if (process) {
+        processInfo = process;
+    }
     $.ajax({
         cache: false,
         type: type,
         url: action,
         data: data,
         dataType: "json",
+        processData: processInfo,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);

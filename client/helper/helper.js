@@ -8,13 +8,18 @@ const redirect = (response) => {
     window.location = response.redirect;
 };
 
-const sendAjax = (type, action, data, success) => {
+const sendAjax = (type, action, data, success, process) => {
+    let processInfo = true;
+    if(process) {
+        processInfo = process;
+    }
     $.ajax({
         cache: false,
         type: type,
         url: action,
         data: data,
         dataType: "json",
+        processData: processInfo,
         success: success,
         error: function(xhr, status, error) {
             var messageObj = JSON.parse(xhr.responseText);

@@ -12,8 +12,10 @@ const router = (app) => {
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
   app.get('/maker', mid.requiresLogin, controllers.Deck.makerPage);
-  app.post('/maker', mid.requiresLogin, controllers.Deck.make);
+  app.get('/create', mid.requiresLogin, controllers.Deck.createPage);
+  app.post('/create', mid.requiresLogin, controllers.Deck.make);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  app.put('/change', mid.requiresLogin, controllers.Account.changePassword);
 };
 
 module.exports = router;
