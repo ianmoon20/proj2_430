@@ -6,8 +6,6 @@ const handleLogin = (e) => {
         return false;
     }
     
-    console.log($("input[name=_csrf]").val());
-    
     sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
     
     return false;
@@ -43,6 +41,7 @@ const LoginWindow = (props) => {
         <input type="hidden" name="_csrf" value={props.csrf}/>
         <input className="formSubmit" type="submit" value="Log In" />
         </form>
+        
     );
 };
 

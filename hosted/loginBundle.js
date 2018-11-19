@@ -8,8 +8,6 @@ var handleLogin = function handleLogin(e) {
         return false;
     }
 
-    console.log($("input[name=_csrf]").val());
-
     sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
 
     return false;
@@ -122,8 +120,8 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+    $("#errorMessage").fadeIn().delay(2500).fadeOut();
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
@@ -142,7 +140,7 @@ var sendAjax = function sendAjax(type, action, data, success, process) {
         url: action,
         data: data,
         dataType: "json",
-        processData: processInfo,
+        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);

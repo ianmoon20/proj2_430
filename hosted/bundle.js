@@ -1,7 +1,47 @@
 "use strict";
 
 var handleDeck = function handleDeck(e) {
-    console.log(e.cards);
+    ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
+};
+
+var CardList = function CardList(cardList) {
+    console.log(cardList);
+    if (Object.keys(cardList['cards']).length === 0) {
+        return React.createElement(
+            "div",
+            { className: "container-fluid pt-3 rounded" },
+            React.createElement(
+                "div",
+                { className: "cardList row flex-row", align: "center" },
+                React.createElement(
+                    "h3",
+                    { className: "emptyCard" },
+                    "Select a deck by clicking on it's tab. If you have no decks, make one by pressing the New Deck button!"
+                )
+            )
+        );
+    }
+
+    var cardNodes = [];
+    var keys = Object.keys(cardList['cards'][0]).length;
+
+    for (var i = 0; i < keys; i++) {
+        cardNodes[i] = React.createElement(
+            "div",
+            { key: i, className: "card col-xs-2", align: "center" },
+            React.createElement("img", { className: "card-img-top", src: cardList['cards'][0][i].imageUrl, alt: cardList['cards'][0][i].name })
+        );
+    }
+
+    return React.createElement(
+        "div",
+        { className: "container-fluid pt-3 rounded" },
+        React.createElement(
+            "div",
+            { className: "cardList row flex-row", align: "center" },
+            cardNodes
+        )
+    );
 };
 
 var DeckList = function DeckList(props) {
@@ -26,13 +66,11 @@ var DeckList = function DeckList(props) {
             "div",
             { key: deck._id, className: "card col-xs-2", align: "center" },
             React.createElement(
-                "h3",
-                { className: "deckName", onClick: function onClick() {
+                "a",
+                { href: "#", className: "deckName h3", onClick: function onClick() {
                         return handleDeck(deck);
                     } },
-                "Name: ",
-                deck.name,
-                " "
+                deck.name
             )
         );
     });
@@ -54,7 +92,6 @@ var ButtonForm = function ButtonForm(props) {
 
 var loadDecksFromServer = function loadDecksFromServer() {
     sendAjax('GET', '/getDecks', null, function (data) {
-        console.log(data);
         ReactDOM.render(React.createElement(DeckList, { decks: data.decks }), document.querySelector("#deck"));
     });
 };
@@ -63,6 +100,7 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(ButtonForm, { csrf: csrf }), document.querySelector("#createButton"));
 
     ReactDOM.render(React.createElement(DeckList, { decks: [] }), document.querySelector("#deck"));
+    ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
 
     loadDecksFromServer();
 };
@@ -79,8 +117,8 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+    $("#errorMessage").fadeIn().delay(2500).fadeOut();
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
@@ -99,7 +137,7 @@ var sendAjax = function sendAjax(type, action, data, success, process) {
         url: action,
         data: data,
         dataType: "json",
-        processData: processInfo,
+        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);

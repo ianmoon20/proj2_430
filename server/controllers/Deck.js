@@ -19,17 +19,18 @@ const createPage = (req, res) => {
 };
 
 const makeDeck = (req, res) => {
-  if (req.body.cards.length === 0 || !req.body.name) {
-    return res.status(400).json({ error: 'RAWR! Deck Name and cards are required' });
+  let cards = decodeURIComponent(req.body.cards);
+  cards = JSON.parse(cards);
+
+  if (!cards || cards === 0 || !req.body.name) {
+    return res.status(400).json({ error: 'Deck Name and cards are required' });
   }
 
   const deckData = {
     name: req.body.name,
-    cards: req.body.cards,
+    cards,
     owner: req.session.account._id,
   };
-
-  console.log(deckData);
 
   const newDeck = new Deck.DeckModel(deckData);
 

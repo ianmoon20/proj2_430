@@ -37,11 +37,38 @@ html, body {
     border-radius: 10px;
     border-color: #0A0908;
     border-style: solid;
+    margin: 1%;
+}
+
+#errorMessage {
+    margin: auto;
+    display: none;
+    width: 50%;
+    border-radius: 10px;
+    border: 3px solid #0A0908;
+    background-color: #FFFFFF;
+    padding: 10px;
+    align-content: center;
 }
 
 #searchResults, #deckList {
     overflow-y: auto;
     max-height: 35%;
+}
+
+#deck {
+    overflow-y: auto;
+    max-height: 40%;
+}
+
+#deckResults {
+    overflow-y: auto;
+    max-height: 60%;
+}
+
+.deckName {
+    padding-left: 2%;
+    padding-top: 1%
 }
 
 .navbar {

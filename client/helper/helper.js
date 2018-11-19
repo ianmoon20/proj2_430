@@ -1,6 +1,6 @@
 const handleError = (message) => {
+    $("#errorMessage").fadeIn().delay(2500).fadeOut();
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({width:'toggle'}, 350);
 };
 
 const redirect = (response) => {
@@ -19,7 +19,7 @@ const sendAjax = (type, action, data, success, process) => {
         url: action,
         data: data,
         dataType: "json",
-        processData: processInfo,
+        processData: true,
         success: success,
         error: function(xhr, status, error) {
             var messageObj = JSON.parse(xhr.responseText);

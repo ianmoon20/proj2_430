@@ -27,13 +27,8 @@ var handleDeck = function handleDeck(e) {
         return false;
     }
 
-    var deck = {
-        deckName: name,
-        cards: cardsList
-    };
-
-    console.log($("#deckForm").serialize() + "&cards=" + JSON.stringify(cardsList));
-    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize() + "&cards=" + JSON.stringify(cardsList), function () {}, false);
+    var list = encodeURIComponent(JSON.stringify(cardsList));
+    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize() + '&cards=' + list, redirect, false);
 
     return false;
 };
@@ -158,13 +153,11 @@ var loadCardsFromServer = function loadCardsFromServer(cardName) {
     sendAjax('GET', '/getCards', { name: cardName }, function (data) {
         //Making sure we only display cards with an image
         var cards = [];
-        console.log(data.cards);
         for (var i = 0; i < data.cards.length; i++) {
             if (data.cards[i].imageUrl) {
                 cards.push(data.cards[i]);
             }
         }
-        console.log(cards);
         ReactDOM.render(React.createElement(CardList, { cards: [cards] }), document.querySelector("#searchResults"));
     });
 };
@@ -192,8 +185,8 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+    $("#errorMessage").fadeIn().delay(2500).fadeOut();
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
@@ -212,7 +205,7 @@ var sendAjax = function sendAjax(type, action, data, success, process) {
         url: action,
         data: data,
         dataType: "json",
-        processData: processInfo,
+        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);

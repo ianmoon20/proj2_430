@@ -29,14 +29,8 @@ const handleDeck = (e) => {
         return false;
     }
     
-    let deck = {
-        deckName: name,
-        cards: cardsList
-    };
-    
-    console.log($("#deckForm").serialize() + "&cards=" + JSON.stringify(cardsList));
-    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize() + "&cards=" + JSON.stringify(cardsList), function() {
-    }, false);
+    let list = encodeURIComponent(JSON.stringify(cardsList));
+    sendAjax('POST', $("#deckForm").attr("action"), $("#deckForm").serialize() + '&cards=' + list, redirect, false);
     
     return false;
 };
@@ -135,13 +129,11 @@ const loadCardsFromServer = (cardName) => {
     sendAjax('GET', '/getCards', {name: cardName}, (data) => {
         //Making sure we only display cards with an image
         let cards = [];
-        console.log(data.cards);
         for(let i = 0; i < data.cards.length; i++) {
             if(data.cards[i].imageUrl) {
                 cards.push(data.cards[i]);
             }
         }
-        console.log(cards);
         ReactDOM.render(
             <CardList cards={[cards]} />, document.querySelector("#searchResults")
         );

@@ -14,18 +14,23 @@ var PasswordForm = function PasswordForm(props) {
         { id: "passwordForm", onSubmit: handlePassword, name: "passwordForm", action: "/change", method: "PUT", className: "passwordForm" },
         React.createElement(
             "label",
+            { className: "h3" },
+            "Change Password"
+        ),
+        React.createElement(
+            "label",
             { className: "sr-only", htmlFor: "password2" },
             "Password: "
         ),
-        React.createElement("input", { id: "passwordBox", type: "text", name: "password2", placeholder: "Type a new password", required: true }),
+        React.createElement("input", { className: "form-control", type: "password", name: "password2", placeholder: "Type a new password", required: true }),
         React.createElement(
             "label",
             { className: "sr-only", htmlFor: "password3" },
             "Password: "
         ),
-        React.createElement("input", { id: "passwordBox", type: "text", name: "password3", placeholder: "Confirm your new password", required: true }),
+        React.createElement("input", { className: "form-control", type: "password", name: "password3", placeholder: "Confirm your new password", required: true }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeDeckSubmit", type: "submit", value: "Change Password" })
+        React.createElement("input", { className: "makeDeckSubmit formSubmit", type: "submit", value: "Change Password" })
     );
 };
 
@@ -39,14 +44,14 @@ var StatsList = function StatsList(props) {
             { key: props.stats._id, className: "stat" },
             React.createElement(
                 "h3",
-                { className: "statName" },
+                { className: "stat" },
                 "Username: ",
                 props.stats.username,
                 " "
             ),
             React.createElement(
                 "h3",
-                { className: "statAge" },
+                { className: "stat" },
                 " Member Since: ",
                 createdDate.getMonth(),
                 "/",
@@ -84,8 +89,8 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+    $("#errorMessage").fadeIn().delay(2500).fadeOut();
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
@@ -104,7 +109,7 @@ var sendAjax = function sendAjax(type, action, data, success, process) {
         url: action,
         data: data,
         dataType: "json",
-        processData: processInfo,
+        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);
