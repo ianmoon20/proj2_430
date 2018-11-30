@@ -13,7 +13,6 @@ var addCard = function addCard(card) {
             isCardAdded = false;
         }
     }
-
     if (isCardAdded === true) {
         cardsList[cardCount] = {
             imageUrl: card.imageUrl,
@@ -27,8 +26,13 @@ var addCard = function addCard(card) {
 };
 
 var removeCard = function removeCard(e) {
-    delete cardsList[e];
-    cardCount--;
+    cardsList[e].count--;
+
+    if (cardsList[e].count < 1) {
+        delete cardsList[e];
+        cardCount--;
+    };
+
     ReactDOM.render(React.createElement(DeckList, { cards: [cardsList] }), document.querySelector("#deckList"));
 };
 
@@ -67,7 +71,7 @@ var DeckForm = function DeckForm(props) {
     return React.createElement(
         "form",
         { id: "deckForm", onSubmit: handleDeck, name: "deckForm", action: "/create", method: "POST", className: "deckForm" },
-        React.createElement("input", { className: "form-control", id: "deckName", type: "text", name: "name", placeholder: "Enter a deck name...", pattern: "[a-zA-Z0-9]+", title: "Alphanumeric characters only (a-z, A-Z, and 0-9)", required: true }),
+        React.createElement("input", { className: "form-control", id: "deckName", type: "text", name: "name", placeholder: "Enter a deck name...", pattern: "[a-zA-Z0-9 ]+", title: "Alphanumeric characters only (a-z, A-Z, and 0-9)", required: true }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Submit Deck" })
     );

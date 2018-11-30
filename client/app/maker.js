@@ -1,16 +1,28 @@
+let openDeck = "";
+
 const handleDeck = (e) => {
+    console.log(e);
+    if(openDeck != e._id) {
+        ReactDOM.render(
+            <CardList cards={[e.cards]} />, document.querySelector("#deckResults")
+        );
+        openDeck = e._id;
+        return true;
+    }
+    
     ReactDOM.render(
-        <CardList cards={[e.cards]} />, document.querySelector("#deckResults")
+        <CardList cards={[]} />, document.querySelector("#deckResults")
     );
+    openDeck = "";
+    return true;
 };
 
 const CardList = function(cardList) {
-    console.log(cardList);
     if(Object.keys(cardList['cards']).length === 0) {
         return (
             <div className="container-fluid pt-3 rounded">
                 <div className="cardList row flex-row" align="center">
-                    <h3 className="emptyCard">Select a deck by clicking on it's tab. If you have no decks, make one by pressing the New Deck button!</h3>
+                    <h3 className="emptyCard">Select a deck by clicking on it's tab or make one by pressing the New Deck button!</h3>
                 </div>
             </div>
         );
@@ -18,7 +30,6 @@ const CardList = function(cardList) {
     
     const cardNodes = [];
     let keys = Object.values(cardList['cards'][0]);
-    console.log(keys);
     for(let i = 0; i < keys.length; i++) {
         cardNodes[i] = (<div key={i} className="card col-xs-2" align="center">
                 <img className="card-img-top" src={keys[i].imageUrl} alt={keys[i].name}/>

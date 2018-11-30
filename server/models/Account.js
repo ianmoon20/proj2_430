@@ -13,7 +13,6 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    // Unique isn't working on Heroku but is working locally. I don't know why.
     unique: true,
     match: /^[A-Za-z0-9_\-.]{1,16}$/,
   },

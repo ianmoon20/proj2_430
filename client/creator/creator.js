@@ -11,7 +11,6 @@ const addCard = (card) => {
             isCardAdded = false;
         }
     }
-    
     if(isCardAdded === true) {
         cardsList[cardCount] = {
             imageUrl: card.imageUrl,
@@ -27,8 +26,13 @@ const addCard = (card) => {
 };
 
 const removeCard = (e) => {
-    delete cardsList[e];
-    cardCount--;
+    cardsList[e].count--;
+    
+    if(cardsList[e].count < 1) {
+        delete cardsList[e];
+        cardCount--;
+    };
+    
     ReactDOM.render(
         <DeckList cards={[cardsList]} />, document.querySelector("#deckList")
     );
@@ -68,7 +72,7 @@ const handleSearch = (e) => {
 const DeckForm = (props) => {
     return (
         <form id="deckForm" onSubmit={handleDeck} name="deckForm" action="/create" method="POST" className="deckForm">
-            <input className="form-control" id="deckName" type="text" name="name" placeholder="Enter a deck name..." pattern="[a-zA-Z0-9]+" title="Alphanumeric characters only (a-z, A-Z, and 0-9)" required/>
+            <input className="form-control" id="deckName" type="text" name="name" placeholder="Enter a deck name..." pattern="[a-zA-Z0-9 ]+" title="Alphanumeric characters only (a-z, A-Z, and 0-9)" required/>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="formSubmit" type="submit" value="Submit Deck" />
         </form>

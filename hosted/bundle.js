@@ -1,11 +1,21 @@
 "use strict";
 
+var openDeck = "";
+
 var handleDeck = function handleDeck(e) {
-    ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
+    console.log(e);
+    if (openDeck != e._id) {
+        ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
+        openDeck = e._id;
+        return true;
+    }
+
+    ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
+    openDeck = "";
+    return true;
 };
 
 var CardList = function CardList(cardList) {
-    console.log(cardList);
     if (Object.keys(cardList['cards']).length === 0) {
         return React.createElement(
             "div",
@@ -16,7 +26,7 @@ var CardList = function CardList(cardList) {
                 React.createElement(
                     "h3",
                     { className: "emptyCard" },
-                    "Select a deck by clicking on it's tab. If you have no decks, make one by pressing the New Deck button!"
+                    "Select a deck by clicking on it's tab or make one by pressing the New Deck button!"
                 )
             )
         );
@@ -24,7 +34,6 @@ var CardList = function CardList(cardList) {
 
     var cardNodes = [];
     var keys = Object.values(cardList['cards'][0]);
-    console.log(keys);
     for (var i = 0; i < keys.length; i++) {
         cardNodes[i] = React.createElement(
             "div",
