@@ -1,18 +1,24 @@
 let openDeck = "";
 
 const handleDeck = (e) => {
-    console.log(e);
     if(openDeck != e._id) {
+        if(openDeck != "") {
+            document.getElementById(openDeck).style.backgroundColor = "white";
+        }
         ReactDOM.render(
             <CardList cards={[e.cards]} />, document.querySelector("#deckResults")
         );
+        
         openDeck = e._id;
+        document.getElementById(openDeck).style.backgroundColor = "lightblue";
         return true;
     }
     
     ReactDOM.render(
         <CardList cards={[]} />, document.querySelector("#deckResults")
     );
+    
+    document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
 };
@@ -59,7 +65,7 @@ const DeckList = function(props) {
     
     const deckNodes = props.decks.map(function(deck) {
         return (
-            <div key={deck._id} className="card col-xs-2" align="center">
+            <div key={deck._id} id={deck._id} className="card col-xs-2" align="center">
                 <a href="#" className="deckName h3" onClick={() => handleDeck(deck)}>{deck.name}</a>
             </div>
         );
@@ -85,6 +91,10 @@ const loadDecksFromServer = () => {
         ReactDOM.render(
             <DeckList decks={data.decks} />, document.querySelector("#deck")
         );
+        
+        if(data.decks.length > 0) {
+            handleDeck(data.decks[0]);
+        }
     });
 };
 

@@ -144,6 +144,20 @@ nav:nth-child(1) {
     float:left;
 }
 
+.tip-container {
+    background-color: rgba(112, 128, 144, 0.75);
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+.tip {
+    color: ghostwhite;
+    text-align: center;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
 .makeDomoSubmit {
     transition: background-color 0.4s ease;
     display: inline;

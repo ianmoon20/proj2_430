@@ -3,14 +3,20 @@
 var openDeck = "";
 
 var handleDeck = function handleDeck(e) {
-    console.log(e);
     if (openDeck != e._id) {
+        if (openDeck != "") {
+            document.getElementById(openDeck).style.backgroundColor = "white";
+        }
         ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
+
         openDeck = e._id;
+        document.getElementById(openDeck).style.backgroundColor = "lightblue";
         return true;
     }
 
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
+
+    document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
 };
@@ -78,7 +84,7 @@ var DeckList = function DeckList(props) {
     var deckNodes = props.decks.map(function (deck) {
         return React.createElement(
             "div",
-            { key: deck._id, className: "card col-xs-2", align: "center" },
+            { key: deck._id, id: deck._id, className: "card col-xs-2", align: "center" },
             React.createElement(
                 "a",
                 { href: "#", className: "deckName h3", onClick: function onClick() {
@@ -107,6 +113,10 @@ var ButtonForm = function ButtonForm(props) {
 var loadDecksFromServer = function loadDecksFromServer() {
     sendAjax('GET', '/getDecks', null, function (data) {
         ReactDOM.render(React.createElement(DeckList, { decks: data.decks }), document.querySelector("#deck"));
+
+        if (data.decks.length > 0) {
+            handleDeck(data.decks[0]);
+        }
     });
 };
 
