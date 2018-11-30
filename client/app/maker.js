@@ -17,11 +17,12 @@ const CardList = function(cardList) {
     }
     
     const cardNodes = [];
-    let keys = Object.keys(cardList['cards'][0]).length;
-    
-    for(let i = 0; i < keys; i++) {
+    let keys = Object.values(cardList['cards'][0]);
+    console.log(keys);
+    for(let i = 0; i < keys.length; i++) {
         cardNodes[i] = (<div key={i} className="card col-xs-2" align="center">
-                <img className="card-img-top" src={cardList['cards'][0][i].imageUrl} alt={cardList['cards'][0][i].name}/>
+                <img className="card-img-top" src={keys[i].imageUrl} alt={keys[i].name}/>
+                <p className="card-img-number">{keys[i].count}</p>
             </div>)
     }
     

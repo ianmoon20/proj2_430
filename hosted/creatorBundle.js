@@ -6,8 +6,21 @@ var cardCount = 0;
 var timeout = null;
 
 var addCard = function addCard(card) {
-    cardsList[cardCount] = card;
-    cardCount++;
+    var isCardAdded = true;
+    for (var i = 0; i < cardCount; i++) {
+        if (cardsList[i].imageUrl === card.imageUrl) {
+            cardsList[i].count++;
+            isCardAdded = false;
+        }
+    }
+    if (isCardAdded === true) {
+        cardsList[cardCount] = {
+            imageUrl: card.imageUrl,
+            name: card.name,
+            count: 1
+        };
+        cardCount++;
+    };
 
     ReactDOM.render(React.createElement(DeckList, { cards: [cardsList] }), document.querySelector("#deckList"));
 };
@@ -130,7 +143,12 @@ var DeckList = function DeckList(cardList) {
             { key: i, className: "card col-xs-2", align: "center" },
             React.createElement("img", { className: "card-img-top", src: cardsList[keys[i]].imageUrl, alt: cardsList[keys[i]].name, onClick: function onClick(e) {
                     return removeCard(keys[i]);
-                } })
+                } }),
+            React.createElement(
+                "p",
+                { className: "card-img-number" },
+                cardsList[keys[i]].count
+            )
         );
     };
 
@@ -194,18 +212,13 @@ var redirect = function redirect(response) {
     window.location = response.redirect;
 };
 
-var sendAjax = function sendAjax(type, action, data, success, process) {
-    var processInfo = true;
-    if (process) {
-        processInfo = process;
-    }
+var sendAjax = function sendAjax(type, action, data, success) {
     $.ajax({
         cache: false,
         type: type,
         url: action,
         data: data,
         dataType: "json",
-        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);

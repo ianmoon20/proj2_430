@@ -4,8 +4,21 @@ let cardCount = 0;
 let timeout = null;
 
 const addCard = (card) => {
-    cardsList[cardCount] = card;
-    cardCount++;
+    let isCardAdded = true;
+    for(let i = 0; i < cardCount; i++) {
+        if(cardsList[i].imageUrl === card.imageUrl) {
+            cardsList[i].count++;
+            isCardAdded = false;
+        }
+    }
+    if(isCardAdded === true) {
+        cardsList[cardCount] = {
+            imageUrl: card.imageUrl,
+            name: card.name,
+            count: 1
+        };
+        cardCount++;
+    };
     
     ReactDOM.render(
         <DeckList cards={[cardsList]} />, document.querySelector("#deckList")
@@ -113,6 +126,7 @@ const DeckList = function(cardList) {
     for(let i = 0; i < cardCount; i++) {
         cardNodes[i] = (<div key={i} className="card col-xs-2" align="center">
                 <img className="card-img-top" src={cardsList[keys[i]].imageUrl} alt={cardsList[keys[i]].name} onClick={(e) => removeCard(keys[i])}/>
+                <p className="card-img-number">{cardsList[keys[i]].count}</p>
             </div>)
     }
     

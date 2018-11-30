@@ -23,13 +23,18 @@ var CardList = function CardList(cardList) {
     }
 
     var cardNodes = [];
-    var keys = Object.keys(cardList['cards'][0]).length;
-
-    for (var i = 0; i < keys; i++) {
+    var keys = Object.values(cardList['cards'][0]);
+    console.log(keys);
+    for (var i = 0; i < keys.length; i++) {
         cardNodes[i] = React.createElement(
             "div",
             { key: i, className: "card col-xs-2", align: "center" },
-            React.createElement("img", { className: "card-img-top", src: cardList['cards'][0][i].imageUrl, alt: cardList['cards'][0][i].name })
+            React.createElement("img", { className: "card-img-top", src: keys[i].imageUrl, alt: keys[i].name }),
+            React.createElement(
+                "p",
+                { className: "card-img-number" },
+                keys[i].count
+            )
         );
     }
 
@@ -126,18 +131,13 @@ var redirect = function redirect(response) {
     window.location = response.redirect;
 };
 
-var sendAjax = function sendAjax(type, action, data, success, process) {
-    var processInfo = true;
-    if (process) {
-        processInfo = process;
-    }
+var sendAjax = function sendAjax(type, action, data, success) {
     $.ajax({
         cache: false,
         type: type,
         url: action,
         data: data,
         dataType: "json",
-        processData: true,
         success: success,
         error: function error(xhr, status, _error) {
             var messageObj = JSON.parse(xhr.responseText);
