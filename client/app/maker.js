@@ -5,8 +5,13 @@ const handleDeck = (e) => {
         if(openDeck != "") {
             document.getElementById(openDeck).style.backgroundColor = "white";
         }
+        
         ReactDOM.render(
             <CardList cards={[e.cards]} />, document.querySelector("#deckResults")
+        );
+        
+        ReactDOM.render(
+            <DeckInfo cards={[e.cards]} />, document.querySelector("#deckInfo")
         );
         
         openDeck = e._id;
@@ -21,6 +26,19 @@ const handleDeck = (e) => {
     document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
+};
+
+const DeckInfo = function(cardList) {
+    let keys = Object.values(cardList['cards'][0]);
+    let numCards = 0;
+    for(let i = 0; i < keys.length; i++) {
+        numCards += keys[i].count;
+    }
+    return (
+        <div className="deckInfo">
+            <p className="info-number">{numCards}</p>
+        </div>
+    );
 };
 
 const CardList = function(cardList) {

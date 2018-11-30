@@ -1,5 +1,6 @@
 let cardsList = {};
 let cardCount = 0;
+let numCards = 0;
 
 let timeout = null;
 
@@ -7,7 +8,10 @@ const addCard = (card) => {
     let isCardAdded = true;
     for(let i = 0; i < cardCount; i++) {
         if(cardsList[i].imageUrl === card.imageUrl) {
-            cardsList[i].count++;
+            if(cardsList[i].count + 1 < 999) {
+                cardsList[i].count++;
+            }
+            
             isCardAdded = false;
         }
     }
@@ -19,6 +23,12 @@ const addCard = (card) => {
         };
         cardCount++;
     };
+    
+    numCards++;
+    
+    ReactDOM.render(
+        <DeckInfo number={numCards} />, document.querySelector("#deckInfo")
+    );
     
     ReactDOM.render(
         <DeckList cards={[cardsList]} />, document.querySelector("#deckList")
@@ -32,6 +42,12 @@ const removeCard = (e) => {
         delete cardsList[e];
         cardCount--;
     };
+    
+    numCards--;
+    
+    ReactDOM.render(
+        <DeckInfo number={numCards} />, document.querySelector("#deckInfo")
+    );
     
     ReactDOM.render(
         <DeckList cards={[cardsList]} />, document.querySelector("#deckList")
@@ -55,10 +71,6 @@ const handleDeck = (e) => {
 
 const handleSearch = (e) => {
     e.preventDefault();
-    
-    if($("#cardName").val().trim() === '') {
-        return false;
-    }
     
     //Clearing the timeout
     clearTimeout(timeout);
@@ -87,7 +99,7 @@ const SearchForm = (props) => {
 };
 
 const CardList = function(props) {
-    if(props.cards.length === 0) {
+    if(!props.cards[0] || props.cards[0].length === 0) {
         return (
             <div className="container-fluid pt-3">
                 <div className="cardList row flex-row" align="center">
@@ -110,6 +122,14 @@ const CardList = function(props) {
             <div className="cardList row flex-row" align="center">
                 {cardNodes}
             </div>
+        </div>
+    );
+};
+
+const DeckInfo = function(number) {
+    return (
+        <div className="deckInfo">
+            <p className="info-number">{number['number']}</p>
         </div>
     );
 };
@@ -169,6 +189,10 @@ const setup = function(csrf) {
     
     ReactDOM.render(
         <CardList cards={[]} />, document.querySelector("#searchResults")
+    );
+    
+    ReactDOM.render(
+        <DeckInfo number={numCards} />, document.querySelector("#deckInfo")
     );
     
     ReactDOM.render(

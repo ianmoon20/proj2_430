@@ -7,7 +7,10 @@ var handleDeck = function handleDeck(e) {
         if (openDeck != "") {
             document.getElementById(openDeck).style.backgroundColor = "white";
         }
+
         ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
+
+        ReactDOM.render(React.createElement(DeckInfo, { cards: [e.cards] }), document.querySelector("#deckInfo"));
 
         openDeck = e._id;
         document.getElementById(openDeck).style.backgroundColor = "lightblue";
@@ -19,6 +22,23 @@ var handleDeck = function handleDeck(e) {
     document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
+};
+
+var DeckInfo = function DeckInfo(cardList) {
+    var keys = Object.values(cardList['cards'][0]);
+    var numCards = 0;
+    for (var i = 0; i < keys.length; i++) {
+        numCards += keys[i].count;
+    }
+    return React.createElement(
+        "div",
+        { className: "deckInfo" },
+        React.createElement(
+            "p",
+            { className: "info-number" },
+            numCards
+        )
+    );
 };
 
 var CardList = function CardList(cardList) {

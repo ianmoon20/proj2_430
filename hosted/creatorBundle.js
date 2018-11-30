@@ -2,6 +2,7 @@
 
 var cardsList = {};
 var cardCount = 0;
+var numCards = 0;
 
 var timeout = null;
 
@@ -9,7 +10,10 @@ var addCard = function addCard(card) {
     var isCardAdded = true;
     for (var i = 0; i < cardCount; i++) {
         if (cardsList[i].imageUrl === card.imageUrl) {
-            cardsList[i].count++;
+            if (cardsList[i].count + 1 < 999) {
+                cardsList[i].count++;
+            }
+
             isCardAdded = false;
         }
     }
@@ -22,6 +26,10 @@ var addCard = function addCard(card) {
         cardCount++;
     };
 
+    numCards++;
+
+    ReactDOM.render(React.createElement(DeckInfo, { number: numCards }), document.querySelector("#deckInfo"));
+
     ReactDOM.render(React.createElement(DeckList, { cards: [cardsList] }), document.querySelector("#deckList"));
 };
 
@@ -32,6 +40,10 @@ var removeCard = function removeCard(e) {
         delete cardsList[e];
         cardCount--;
     };
+
+    numCards--;
+
+    ReactDOM.render(React.createElement(DeckInfo, { number: numCards }), document.querySelector("#deckInfo"));
 
     ReactDOM.render(React.createElement(DeckList, { cards: [cardsList] }), document.querySelector("#deckList"));
 };
@@ -53,10 +65,6 @@ var handleDeck = function handleDeck(e) {
 
 var handleSearch = function handleSearch(e) {
     e.preventDefault();
-
-    if ($("#cardName").val().trim() === '') {
-        return false;
-    }
 
     //Clearing the timeout
     clearTimeout(timeout);
@@ -85,7 +93,7 @@ var SearchForm = function SearchForm(props) {
 };
 
 var CardList = function CardList(props) {
-    if (props.cards.length === 0) {
+    if (!props.cards[0] || props.cards[0].length === 0) {
         return React.createElement(
             "div",
             { className: "container-fluid pt-3" },
@@ -118,6 +126,18 @@ var CardList = function CardList(props) {
             "div",
             { className: "cardList row flex-row", align: "center" },
             cardNodes
+        )
+    );
+};
+
+var DeckInfo = function DeckInfo(number) {
+    return React.createElement(
+        "div",
+        { className: "deckInfo" },
+        React.createElement(
+            "p",
+            { className: "info-number" },
+            number['number']
         )
     );
 };
@@ -190,6 +210,8 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(SearchForm, { csrf: csrf }), document.querySelector("#search"));
 
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#searchResults"));
+
+    ReactDOM.render(React.createElement(DeckInfo, { number: numCards }), document.querySelector("#deckInfo"));
 
     ReactDOM.render(React.createElement(DeckList, { cards: [] }), document.querySelector("#deckList"));
 

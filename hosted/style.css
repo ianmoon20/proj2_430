@@ -16,13 +16,25 @@ html, body {
 }
 
 .card-img-number {
-    background-color: rgba(112, 128, 144, 0.75);
+    background-color: rgba(112, 128, 144, 0.70);
     color: ghostwhite;
     position: absolute;
     font-size: 1.5em;
     text-align: center;
     bottom: -16px;
     width: 2em;
+}
+
+.info-number {
+    background-color: rgba(112, 128, 144, 0.70);
+    border-top-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    color: ghostwhite;
+    font-size: 1.2em;
+    text-align: center;
+    bottom: -16px;
+    margin: 0px;
+    width: 3em;
 }
 
 #content {
@@ -42,7 +54,7 @@ html, body {
     padding-bottom: 0%;
 }
 
-#deckList, #form-container {
+#form-container {
     background-color: #FFFFFF;
     border-radius: 10px;
     border-color: #0A0908;
@@ -66,14 +78,9 @@ html, body {
     max-height: 35%;
 }
 
-#deck {
-    overflow-y: auto;
-    max-height: 40%;
-}
-
 #deckResults {
     overflow-y: auto;
-    max-height: 60%;
+    max-height: 35%;
 }
 
 .deckName {
