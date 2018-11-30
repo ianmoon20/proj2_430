@@ -12,6 +12,7 @@ var addCard = function addCard(card) {
         if (cardsList[i].imageUrl === card.imageUrl) {
             if (cardsList[i].count + 1 < 999) {
                 cardsList[i].count++;
+                numCards++;
             }
 
             isCardAdded = false;
@@ -24,9 +25,8 @@ var addCard = function addCard(card) {
             count: 1
         };
         cardCount++;
+        numCards++;
     };
-
-    numCards++;
 
     ReactDOM.render(React.createElement(DeckInfo, { number: numCards }), document.querySelector("#deckInfo"));
 
