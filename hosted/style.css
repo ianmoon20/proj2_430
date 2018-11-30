@@ -80,12 +80,16 @@ html, body {
 
 #deckResults {
     overflow-y: auto;
-    max-height: 35%;
+    max-height: 50%;
 }
 
 .deckName {
     padding-left: 2%;
     padding-top: 1%
+}
+
+#deck {
+    max-height: 30%
 }
 
 .navbar {
