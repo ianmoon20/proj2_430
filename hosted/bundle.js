@@ -19,25 +19,34 @@ var handleDeck = function handleDeck(e) {
 
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
 
+    ReactDOM.render(React.createElement(DeckInfo, { cards: [] }), document.querySelector("#deckInfo"));
+
     document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
 };
 
 var DeckInfo = function DeckInfo(cardList) {
-    var keys = Object.values(cardList['cards'][0]);
-    var numCards = 0;
-    for (var i = 0; i < keys.length; i++) {
-        numCards += keys[i].count;
+    if (cardList.cards.length != 0) {
+        var keys = Object.values(cardList['cards'][0]);
+        var numCards = 0;
+        for (var i = 0; i < keys.length; i++) {
+            numCards += keys[i].count;
+        }
+        return React.createElement(
+            "div",
+            { className: "deckInfo" },
+            React.createElement(
+                "p",
+                { className: "info-number" },
+                numCards
+            )
+        );
     }
     return React.createElement(
         "div",
         { className: "deckInfo" },
-        React.createElement(
-            "p",
-            { className: "info-number" },
-            numCards
-        )
+        React.createElement("p", { className: "info-number" })
     );
 };
 

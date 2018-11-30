@@ -4,7 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background-color: #523F38;
+    background-color: slategrey;
 }
 
 #logo {
@@ -17,6 +17,8 @@ html, body {
 
 .card-img-number {
     background-color: rgba(112, 128, 144, 0.70);
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
     color: ghostwhite;
     position: absolute;
     font-size: 1.5em;
@@ -94,7 +96,7 @@ html, body {
 }
 
 .navbar {
-    background-color: #9E7B6E!important;
+    background-color: darkslategray!important;
     border-bottom: solid;
     border-color: #0A0908;
 }
@@ -118,18 +120,9 @@ nav:nth-child(1) {
     margin-right: 40%;
 }
 
-.nav-link a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: #55acee;
-    transition: background-color 0.4s ease;
-}
-
-.nav-link a:hover {
-    transition: background-color 0.8s ease;
-    background-color: #DADFF7;
+.nav-link:hover {
+    color: lightblue;
+    transition: color 0.4s ease;
 }
 
 .domoForm {
@@ -370,6 +363,7 @@ h3.domoAge {
 
 .card {
     background-color: transparent;
+    border: 0px;
 }
 
 .row {

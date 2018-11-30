@@ -23,20 +23,31 @@ const handleDeck = (e) => {
         <CardList cards={[]} />, document.querySelector("#deckResults")
     );
     
+    ReactDOM.render(
+            <DeckInfo cards={[]} />, document.querySelector("#deckInfo")
+    );
+    
     document.getElementById(openDeck).style.backgroundColor = "white";
     openDeck = "";
     return true;
 };
 
 const DeckInfo = function(cardList) {
-    let keys = Object.values(cardList['cards'][0]);
-    let numCards = 0;
-    for(let i = 0; i < keys.length; i++) {
-        numCards += keys[i].count;
+    if(cardList.cards.length != 0) {
+        let keys = Object.values(cardList['cards'][0]);
+        let numCards = 0;
+        for(let i = 0; i < keys.length; i++) {
+            numCards += keys[i].count;
+        }
+        return (
+            <div className="deckInfo">
+                <p className="info-number">{numCards}</p>
+            </div>
+        );
     }
     return (
         <div className="deckInfo">
-            <p className="info-number">{numCards}</p>
+            <p className="info-number"></p>
         </div>
     );
 };
