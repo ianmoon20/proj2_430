@@ -37,6 +37,23 @@ html, body {
     width: 2em;
 }
 
+.card-img-top {
+    padding: 5px;
+}
+
+.search-cards {
+    animation: fadeIn 1.25s ease-in;
+}
+
+/* https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    25% { opacity: 0; }
+    50% { opacity: 25; }
+    75% { opacity: 55; }
+    100% { opacity: 100; }
+}
+
 .info-number {
     background-color: rgba(112, 128, 144, 0.70);
     border-top-left-radius: 7px;

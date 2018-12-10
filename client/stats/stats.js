@@ -24,7 +24,6 @@ const PasswordForm = (props) => {
 
 const StatsList = function(props) {
     const createdDate = new Date(props.stats.createdDate);
-    console.log(createdDate);
     
     //Have to use a modulus on getMonth because for some reason that's the only one that returns a 0 based array. (January = 0, December = 11)
     return (

@@ -113,7 +113,7 @@ var CardList = function CardList(props) {
         return React.createElement(
             "div",
             { key: card.id, className: "card col-xs-2", align: "center" },
-            React.createElement("img", { className: "card-img-top", src: card.imageUrl, alt: card.name, onClick: function onClick() {
+            React.createElement("img", { className: "card-img-top search-cards", src: card.imageUrl, alt: card.name, onClick: function onClick() {
                     return addCard(card);
                 } })
         );

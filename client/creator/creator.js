@@ -112,7 +112,7 @@ const CardList = function(props) {
     const cardNodes = props.cards[0].map((card) => {
         return (
             <div key={card.id} className="card col-xs-2" align="center">
-                <img className="card-img-top" src={card.imageUrl} alt={card.name} onClick={() => addCard(card)}/>
+                <img className="card-img-top search-cards" src={card.imageUrl} alt={card.name} onClick={() => addCard(card)}/>
             </div>
         );
     });
