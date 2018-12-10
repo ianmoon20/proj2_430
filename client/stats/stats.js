@@ -24,11 +24,14 @@ const PasswordForm = (props) => {
 
 const StatsList = function(props) {
     const createdDate = new Date(props.stats.createdDate);
+    console.log(createdDate);
+    
+    //Have to use a modulus on getMonth because for some reason that's the only one that returns a 0 based array. (January = 0, December = 11)
     return (
         <div className="statList">
             <div key={props.stats._id} className="stat">
                 <h3 className="stat deckName">Username: {props.stats.username} </h3>
-                <h3 className="stat deckName"> Member Since: {createdDate.getMonth()}/{createdDate.getDate()}/{createdDate.getFullYear()}</h3>
+                <h3 className="stat deckName"> Member Since: {(createdDate.getMonth() + 1) % 13}/{createdDate.getDate()}/{createdDate.getFullYear()}</h3>
             </div>
         </div>
     );

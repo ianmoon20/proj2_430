@@ -26,7 +26,7 @@ const AccountSchema = new mongoose.Schema({
   },
   createdDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 });
 

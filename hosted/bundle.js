@@ -16,7 +16,9 @@ var handleDeck = function handleDeck(e) {
         ReactDOM.render(React.createElement(DeckInfo, { cards: [e.cards] }), document.querySelector("#deckInfo"));
 
         openDeck = e._id;
-        document.getElementById(openDeck).style.backgroundColor = "#F0DFAD";
+
+        //E5FFDE D0E3CC
+        document.getElementById(openDeck).style.backgroundColor = "#D0E3CC";
         return true;
     }
 

@@ -18,7 +18,9 @@ const handleDeck = (e) => {
         );
         
         openDeck = e._id;
-        document.getElementById(openDeck).style.backgroundColor = "#F0DFAD";
+        
+        //E5FFDE D0E3CC
+        document.getElementById(openDeck).style.backgroundColor = "#D0E3CC";
         return true;
     }
     
