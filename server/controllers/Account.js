@@ -10,6 +10,10 @@ const statsPage = (req, res) => {
   res.render('stats', { csrfToken: req.csrfToken() });
 };
 
+const missingPage = (req, res) => {
+  res.render('missing');
+};
+
 const getStats = (request, response) => {
   const req = request;
   const res = response;
@@ -129,6 +133,7 @@ const changePassword = (req, res) => {
 
 module.exports.loginPage = loginPage;
 module.exports.statsPage = statsPage;
+module.exports.missingPage = missingPage;
 module.exports.getStats = getStats;
 module.exports.login = login;
 module.exports.logout = logout;

@@ -16,6 +16,7 @@ const router = (app) => {
   app.post('/create', mid.requiresLogin, controllers.Deck.make);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
   app.put('/change', mid.requiresLogin, controllers.Account.changePassword);
+  app.get('*', controllers.Account.missingPage);
 };
 
 module.exports = router;

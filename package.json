@@ -17,6 +17,7 @@
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
     "watchStatsBundle": "babel --watch ./client/stats ./client/helper --presets react --out-file ./hosted/statsBundle.js",
     "watchCreatorBundle": "babel --watch ./client/creator ./client/helper --presets react --out-file ./hosted/creatorBundle.js",
+    "watchMissingBundle": "babel --watch ./client/missing ./client/helper --presets react --out-file ./hosted/missingBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
