@@ -1,11 +1,14 @@
 "use strict";
 
+//Deck currently opened
 var openDeck = "";
 
+//When a deck is selected, we need to apply the proper stylings to the listing
 var handleDeck = function handleDeck(e) {
+    //Displaying the new deck and applying styling to its listing when we select a new deck
     if (openDeck != e._id) {
         if (openDeck != "") {
-            document.getElementById(openDeck).style.backgroundColor = "white";
+            document.getElementById(openDeck).style.backgroundColor = "#EDF0DA";
         }
 
         ReactDOM.render(React.createElement(CardList, { cards: [e.cards] }), document.querySelector("#deckResults"));
@@ -13,19 +16,31 @@ var handleDeck = function handleDeck(e) {
         ReactDOM.render(React.createElement(DeckInfo, { cards: [e.cards] }), document.querySelector("#deckInfo"));
 
         openDeck = e._id;
-        document.getElementById(openDeck).style.backgroundColor = "lightblue";
+        document.getElementById(openDeck).style.backgroundColor = "#F0DFAD";
         return true;
     }
 
+    //If we aren't selecting a new deck, we're selecting the same one and need to deselect it
     ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
 
     ReactDOM.render(React.createElement(DeckInfo, { cards: [] }), document.querySelector("#deckInfo"));
 
-    document.getElementById(openDeck).style.backgroundColor = "white";
+    document.getElementById(openDeck).style.backgroundColor = "#EDF0DA";
     openDeck = "";
     return true;
 };
 
+//Deleting a deck from the server
+var deleteDeck = function deleteDeck(e) {
+    sendAjax('GET', '/getToken', null, function (result) {
+        sendAjax('DELETE', "/deleteDeck", "_csrf=" + result.csrfToken + "&deck=" + e._id, function () {
+            //Loading the new decklist
+            loadDecksFromServer();
+        });
+    });
+};
+
+//Displaying the amount of cards in the deck
 var DeckInfo = function DeckInfo(cardList) {
     if (cardList.cards.length != 0) {
         var keys = Object.values(cardList['cards'][0]);
@@ -50,6 +65,7 @@ var DeckInfo = function DeckInfo(cardList) {
     );
 };
 
+//Getting a list of the cards in the deck
 var CardList = function CardList(cardList) {
     if (Object.keys(cardList['cards']).length === 0) {
         return React.createElement(
@@ -93,6 +109,7 @@ var CardList = function CardList(cardList) {
     );
 };
 
+//Displaying the deck list
 var DeckList = function DeckList(props) {
     if (props.decks.length === 0) {
         return React.createElement(
@@ -113,13 +130,20 @@ var DeckList = function DeckList(props) {
     var deckNodes = props.decks.map(function (deck) {
         return React.createElement(
             "div",
-            { key: deck._id, id: deck._id, className: "card col-xs-2", align: "center" },
+            { key: deck._id, id: deck._id, className: "deck row flex-row", align: "center" },
             React.createElement(
                 "a",
-                { href: "#", className: "deckName h3", onClick: function onClick() {
+                { href: "#", className: "deckName h3 col-xs-11 col-sm-11", onClick: function onClick() {
                         return handleDeck(deck);
                     } },
                 deck.name
+            ),
+            React.createElement(
+                "button",
+                { type: "button", className: "btn btn-danger col-xs-1 col-sm-1", onClick: function onClick() {
+                        return deleteDeck(deck);
+                    } },
+                "Delete"
             )
         );
     });
@@ -131,6 +155,7 @@ var DeckList = function DeckList(props) {
     );
 };
 
+//Create Deck Button
 var ButtonForm = function ButtonForm(props) {
     return React.createElement(
         "form",
@@ -139,16 +164,27 @@ var ButtonForm = function ButtonForm(props) {
     );
 };
 
+//Gets a list of decks from the server and decides what to do with the list depending on size
 var loadDecksFromServer = function loadDecksFromServer() {
     sendAjax('GET', '/getDecks', null, function (data) {
         ReactDOM.render(React.createElement(DeckList, { decks: data.decks }), document.querySelector("#deck"));
 
         if (data.decks.length > 0) {
+            //If there are decks loaded, we handle the deck info for the first one.
+
+            //Resetting the open deck whenever we load from the server to ensure that the first entry always has proper stylings
+            openDeck = "";
             handleDeck(data.decks[0]);
+        } else if (data.decks.length === 0) {
+            ReactDOM.render(React.createElement(CardList, { cards: [] }), document.querySelector("#deckResults"));
+
+            ReactDOM.render(React.createElement(DeckInfo, { cards: [] }), document.querySelector("#deckInfo"));
+            openDeck = "";
         }
     });
 };
 
+//Setting up the page
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(ButtonForm, { csrf: csrf }), document.querySelector("#createButton"));
 
@@ -158,6 +194,7 @@ var setup = function setup(csrf) {
     loadDecksFromServer();
 };
 
+//Getting csrf
 var getToken = function getToken() {
     sendAjax('GET', '/getToken', null, function (result) {
         setup(result.csrfToken);

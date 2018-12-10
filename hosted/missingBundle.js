@@ -22,26 +22,8 @@ var MissingMessage = function MissingMessage() {
                 { className: "list-inline-item" },
                 React.createElement(
                     "a",
-                    { href: "/login" },
-                    "Login"
-                )
-            ),
-            React.createElement(
-                "li",
-                { className: "list-inline-item" },
-                React.createElement(
-                    "a",
                     { href: "/maker" },
-                    "Deck List"
-                )
-            ),
-            React.createElement(
-                "li",
-                { className: "list-inline-item" },
-                React.createElement(
-                    "a",
-                    { href: "/stats" },
-                    "Stats"
+                    "Back to Safety"
                 )
             )
         )

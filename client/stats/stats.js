@@ -9,13 +9,15 @@ const handlePassword = (e) => {
 const PasswordForm = (props) => {
     return (
         <form id="passwordForm" onSubmit={handlePassword} name="passwordForm" action="/change" method="PUT" className="passwordForm">
-            <label className="h3">Change Password</label>
-            <label className="sr-only" htmlFor="password2">Password: </label>
-            <input className="form-control" type="password" name="password2" placeholder="Type a new password" required/>
-            <label className="sr-only" htmlFor="password3">Password: </label>
-            <input className="form-control" type="password" name="password3" placeholder="Confirm your new password" required/>
-            <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="makeDeckSubmit formSubmit" type="submit" value="Change Password" />
+            <label className="h3 deckName">Change Password</label>
+            <div className="input-group">
+                <label className="sr-only" htmlFor="password2">Password: </label>
+                <input className="form-control" type="password" name="password2" autoComplete="new-password" placeholder="Type a new password" required/>
+                <label className="sr-only" htmlFor="password3">Password: </label>
+                <input className="form-control" type="password" autoComplete="new-password" name="password3" placeholder="Confirm your new password" required/>
+                <input type="hidden" name="_csrf" value={props.csrf} />
+                <button className="btn btn-primary" type="submit" value="Change Password">Submit</button>
+            </div>
         </form>
     );
 };
@@ -25,8 +27,8 @@ const StatsList = function(props) {
     return (
         <div className="statList">
             <div key={props.stats._id} className="stat">
-                <h3 className="stat">Username: {props.stats.username} </h3>
-                <h3 className="stat"> Member Since: {createdDate.getMonth()}/{createdDate.getDate()}/{createdDate.getFullYear()}</h3>
+                <h3 className="stat deckName">Username: {props.stats.username} </h3>
+                <h3 className="stat deckName"> Member Since: {createdDate.getMonth()}/{createdDate.getDate()}/{createdDate.getFullYear()}</h3>
             </div>
         </div>
     );

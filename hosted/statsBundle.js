@@ -14,23 +14,31 @@ var PasswordForm = function PasswordForm(props) {
         { id: "passwordForm", onSubmit: handlePassword, name: "passwordForm", action: "/change", method: "PUT", className: "passwordForm" },
         React.createElement(
             "label",
-            { className: "h3" },
+            { className: "h3 deckName" },
             "Change Password"
         ),
         React.createElement(
-            "label",
-            { className: "sr-only", htmlFor: "password2" },
-            "Password: "
-        ),
-        React.createElement("input", { className: "form-control", type: "password", name: "password2", placeholder: "Type a new password", required: true }),
-        React.createElement(
-            "label",
-            { className: "sr-only", htmlFor: "password3" },
-            "Password: "
-        ),
-        React.createElement("input", { className: "form-control", type: "password", name: "password3", placeholder: "Confirm your new password", required: true }),
-        React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeDeckSubmit formSubmit", type: "submit", value: "Change Password" })
+            "div",
+            { className: "input-group" },
+            React.createElement(
+                "label",
+                { className: "sr-only", htmlFor: "password2" },
+                "Password: "
+            ),
+            React.createElement("input", { className: "form-control", type: "password", name: "password2", autoComplete: "new-password", placeholder: "Type a new password", required: true }),
+            React.createElement(
+                "label",
+                { className: "sr-only", htmlFor: "password3" },
+                "Password: "
+            ),
+            React.createElement("input", { className: "form-control", type: "password", autoComplete: "new-password", name: "password3", placeholder: "Confirm your new password", required: true }),
+            React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+            React.createElement(
+                "button",
+                { className: "btn btn-primary", type: "submit", value: "Change Password" },
+                "Submit"
+            )
+        )
     );
 };
 
@@ -44,14 +52,14 @@ var StatsList = function StatsList(props) {
             { key: props.stats._id, className: "stat" },
             React.createElement(
                 "h3",
-                { className: "stat" },
+                { className: "stat deckName" },
                 "Username: ",
                 props.stats.username,
                 " "
             ),
             React.createElement(
                 "h3",
-                { className: "stat" },
+                { className: "stat deckName" },
                 " Member Since: ",
                 createdDate.getMonth(),
                 "/",

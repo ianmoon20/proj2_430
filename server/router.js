@@ -17,6 +17,7 @@ const router = (app) => {
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
   app.put('/change', mid.requiresLogin, controllers.Account.changePassword);
   app.get('*', controllers.Account.missingPage);
+  app.delete('/deleteDeck', mid.requiresLogin, controllers.Deck.deleteDeck);
 };
 
 module.exports = router;

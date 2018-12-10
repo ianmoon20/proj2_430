@@ -14,6 +14,17 @@ const makerPage = (req, res) => {
   });
 };
 
+const deleteDeck = (req, res) => {
+  Deck.DeckModel.deleteOne({ _id: req.body.deck }, (err) => {
+    console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(400).json({ error: 'An error occurred' });
+    }
+    res.status(202).json({ response: 'Deck successfully deleted' });
+  });
+};
+
 const createPage = (req, res) => {
   res.render('create', { csrfToken: req.csrfToken() });
 };
@@ -74,6 +85,7 @@ const getCards = (request, response) => {
 };
 
 module.exports.makerPage = makerPage;
+module.exports.deleteDeck = deleteDeck;
 module.exports.createPage = createPage;
 module.exports.getDecks = getDecks;
 module.exports.getCards = getCards;
