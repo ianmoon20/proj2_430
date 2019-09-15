@@ -24,7 +24,7 @@ mongoose.connect(dbURL, (err) => {
 
 let redisURL = {
   hostname: 'localhost',
-  port: 6379,
+  port: 3000,
 };
 
 let redisPASS;
@@ -43,6 +43,7 @@ app.use(compression());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+
 app.use(session({
   key: 'sessionid',
   store: new RedisStore({
@@ -50,7 +51,7 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'Golgari Is Best',
+  secret: 'howdy',
   resave: true,
   saveUninitialized: true,
   cookie: {
