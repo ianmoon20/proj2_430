@@ -31,6 +31,7 @@ let redisPASS;
 
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
+    console.log(redisURL.auth.split(':')[1]);
   redisPASS = redisURL.auth.split(':')[1];
 }
 
@@ -51,13 +52,15 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'howdy',
+  secret: 'Golgari Is Best',
   resave: true,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
   },
 }));
+
+console.log(RedisStore);
 
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
