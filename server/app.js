@@ -29,11 +29,11 @@ let redisURL = {
 
 let redisPASS;
 
-console.log(process.env.REDISCLOUD_URL);
+console.log("URL: " + process.env.REDISCLOUD_URL);
 
 if (process.env.REDISCLOUD_URL) {
     redisURL = url.parse(process.env.REDISCLOUD_URL);
-    console.log(redisURL.auth.split(':')[1]);
+    console.log("Password: " + redisURL.auth.split(':')[1]);
     redisPASS = redisURL.auth.split(':')[1];
 }
 
