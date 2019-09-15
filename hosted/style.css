@@ -1,17 +1,25 @@
-html, body {
+:root {
+    --main-bg-color: #54494B;
+    --nav-color: #86615C;
+    --search-bg-color: #FFEEF2;
+    --card-number-color: #0D1321;
+}
+
+html,
+body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background-color: #F0DFAD;
+    background-color: var(--main-bg-color);
 }
 
 #logo {
     height: 40px;
     width: 40;
     padding-top: 5px;
-    float:left;
+    float: left;
     border-radius: 8px;
 }
 
@@ -26,7 +34,8 @@ html, body {
 }
 
 .card-img-number {
-    background-color: rgba(112, 128, 144, 0.70);
+    background-color: var(--card-number-color); 
+    opacity: .9;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     color: ghostwhite;
@@ -38,6 +47,7 @@ html, body {
 }
 
 .card-img-top {
+    width: 85%;
     padding: 5px;
 }
 
@@ -45,17 +55,30 @@ html, body {
     animation: fadeIn 1.25s ease-in;
 }
 
+
 /* https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp */
+
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    25% { opacity: 0; }
-    50% { opacity: 25; }
-    75% { opacity: 55; }
-    100% { opacity: 100; }
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 25;
+    }
+    75% {
+        opacity: 55;
+    }
+    100% {
+        opacity: 100;
+    }
 }
 
 .info-number {
-    background-color: rgba(112, 128, 144, 0.70);
+    background-color: var(--card-number-color);
+    opacity: .9;
     border-top-left-radius: 7px;
     border-bottom-right-radius: 7px;
     color: ghostwhite;
@@ -78,13 +101,14 @@ html, body {
     margin-right: 25%;
 }
 
-#signupForm, #loginForm {
+#signupForm,
+#loginForm {
     margin-top: 10%;
     padding-bottom: 0%;
 }
 
 #form-container {
-    background-color: #EDF0DA;
+    background-color: var(--search-bg-color);
     border-radius: 10px;
     border-color: #0A0908;
     border-style: solid;
@@ -102,7 +126,8 @@ html, body {
     align-content: center;
 }
 
-#searchResults, #deckList {
+#searchResults,
+#deckList {
     overflow-y: auto;
     max-height: 30%;
 }
@@ -123,7 +148,7 @@ html, body {
 }
 
 .navbar {
-    background-color: #8F5C38!important;
+    background-color: var(--nav-color)!important;
     border-bottom: solid;
     border-color: #0A0908;
 }
@@ -136,7 +161,7 @@ nav:nth-child(1) {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
-    color: white;
+    color: var(--search-bg-color);
     font-size: 1.3em;
     float: left;
 }
@@ -158,6 +183,7 @@ nav:nth-child(1) {
     margin-bottom: 0px;
     width: 100%;
 }
+
 .tip {
     color: ghostwhite;
     text-align: center;
@@ -165,7 +191,6 @@ nav:nth-child(1) {
     text-align: center;
     margin-bottom: 0px;
 }
-
 
 .mainForm {
     height: 300px;
@@ -207,7 +232,10 @@ nav:nth-child(1) {
     padding-bottom: 10px;
 }
 
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+.formSubmit:link,
+.formSubmit:visited,
+.formSubmit:hover,
+.formSubmit:active {
     color: white;
 }
 
@@ -233,9 +261,9 @@ nav:nth-child(1) {
 
 #errorMessage {
     font-size: 1.2em;
+    color: black;
+    text-align: center;
     font-weight: bold;
-    color: red;
-    font-style: italic;
 }
 
 .card {
@@ -247,7 +275,7 @@ nav:nth-child(1) {
     border-radius: 10px;
     margin-left: 0px!important;
     margin-right: 1px!important;
-    margin-bottom: 2px;
+    margin-bottom: 1%;
     margin-top: 2px;
 }
 
@@ -263,29 +291,40 @@ nav:nth-child(1) {
 
 
 /* https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp */
+
+
 /* width */
+
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
+
 
 /* Track */
+
 ::-webkit-scrollbar-track {
-  background: transparent; 
+    background: transparent;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
-  background: #AA4465;   
-  border-radius: 10px;
+    background: #AA4465;
+    border-radius: 10px;
 }
+
 
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+    background: #555;
 }
 
+
 /* Handle */
+
 body::-webkit-scrollbar-thumb {
-  background: slategray; 
-  border-radius: 0px;
+    background: slategray;
+    border-radius: 0px;
 }

@@ -6,7 +6,7 @@ const handleDeck = (e) => {
     //Displaying the new deck and applying styling to its listing when we select a new deck
     if(openDeck != e._id) {
         if(openDeck != "") {
-            document.getElementById(openDeck).style.backgroundColor = "#EDF0DA";
+            document.getElementById(openDeck).style.backgroundColor = "#FFEEF2";
         }
         
         ReactDOM.render(
@@ -20,7 +20,7 @@ const handleDeck = (e) => {
         openDeck = e._id;
         
         //E5FFDE D0E3CC
-        document.getElementById(openDeck).style.backgroundColor = "#D0E3CC";
+        document.getElementById(openDeck).style.backgroundColor = "#D4D2D5";
         return true;
     }
     
@@ -33,7 +33,7 @@ const handleDeck = (e) => {
         <DeckInfo cards={[]} />, document.querySelector("#deckInfo")
     );
     
-    document.getElementById(openDeck).style.backgroundColor = "#EDF0DA";
+    document.getElementById(openDeck).style.backgroundColor = "#FFEEF2";
     openDeck = "";
     return true;
 };

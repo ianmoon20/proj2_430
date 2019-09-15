@@ -12,7 +12,7 @@
     "buildStatsBundle": "babel ./client/stats ./client/helper --presets react --out-file ./hosted/statsBundle.js",
     "buildCreatorBundle": "babel ./client/creator ./client/helper --presets react --out-file ./hosted/creatorBundle.js",
     "buildAppBundle": "babel ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle && npm run buildStatsBundle && npm run buildCreatorBundle",
+    "buildAll": "npm run buildLoginBundle && npm run buildAppBundle && npm run buildStatsBundle && npm run buildCreatorBundle",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
     "watchStatsBundle": "babel --watch ./client/stats ./client/helper --presets react --out-file ./hosted/statsBundle.js",

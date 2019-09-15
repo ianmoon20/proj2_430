@@ -24,7 +24,7 @@ mongoose.connect(dbURL, (err) => {
 
 let redisURL = {
     hostname: 'localhost',
-    port: 3000,
+    port: 6379,
 };
 
 let redisPASS;
