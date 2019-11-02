@@ -43,7 +43,7 @@
     "express-session": "^1.13.0",
     "helmet": "^3.21.0",
     "install": "^0.13.0",
-    "mongoose": "^4.4.6",
+    "mongoose": "^5.7.5",
     "mtgsdk": "^0.4.2",
     "npm": "^6.11.3",
     "serve-favicon": "^2.3.0",
