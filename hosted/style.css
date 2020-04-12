@@ -57,6 +57,10 @@ body {
     animation: fadeIn 3s ease-in;
 }
 
+.emptyCard {
+    color: var(--text-color);
+}
+
 
 /* https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp */
 
@@ -279,6 +283,7 @@ nav:nth-child(1) {
     margin-right: 1px!important;
     margin-bottom: 1%;
     margin-top: 2px;
+    background-color:red;
 }
 
 .row {
