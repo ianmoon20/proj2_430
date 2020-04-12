@@ -1,8 +1,9 @@
 :root {
     --main-bg-color: #5A5A66;
     --nav-color: #2D2A32;
-    --search-bg-color: #A54657;
+    --search-bg-color: #121420;
     --card-number-color: #66101F;
+    --text-color: #FFFBFC;
 }
 
 html,
@@ -39,7 +40,7 @@ body {
     opacity: .9;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
-    color: ghostwhite;
+    color: var(--text-color);
     position: absolute;
     font-size: 1.5em;
     text-align: center;
@@ -162,7 +163,7 @@ nav:nth-child(1) {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
-    color: var(--search-bg-color);
+    color: var(--text-color);
     font-size: 1.3em;
     float: left;
 }
