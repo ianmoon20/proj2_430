@@ -190,6 +190,10 @@ nav:nth-child(1) {
     width: 100%;
 }
 
+.h-90 {
+    height: 90%!important;
+}
+
 .tip {
     color: ghostwhite;
     text-align: center;
