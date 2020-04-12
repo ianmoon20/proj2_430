@@ -1,8 +1,8 @@
 :root {
-    --main-bg-color: #54494B;
-    --nav-color: #86615C;
-    --search-bg-color: #FFEEF2;
-    --card-number-color: #0D1321;
+    --main-bg-color: #5A5A66;
+    --nav-color: #2D2A32;
+    --search-bg-color: #A54657;
+    --card-number-color: #66101F;
 }
 
 html,
@@ -13,6 +13,7 @@ body {
     padding: 0;
     overflow-x: hidden;
     background-color: var(--main-bg-color);
+    scroll-behavior: smooth;
 }
 
 #logo {
@@ -47,12 +48,12 @@ body {
 }
 
 .card-img-top {
-    width: 85%;
+    width: 80%;
     padding: 5px;
 }
 
 .search-cards {
-    animation: fadeIn 1.25s ease-in;
+    animation: fadeIn 3s ease-in;
 }
 
 
@@ -79,12 +80,12 @@ body {
 .info-number {
     background-color: var(--card-number-color);
     opacity: .9;
-    border-top-left-radius: 7px;
+    border-top-left-radius: 5px;
     border-bottom-right-radius: 7px;
     color: ghostwhite;
     font-size: 1.2em;
     text-align: center;
-    bottom: -16px;
+    bottom: -18px;
     margin: 0px;
     width: 3em;
 }
