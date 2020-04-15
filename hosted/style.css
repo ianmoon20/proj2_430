@@ -1,9 +1,8 @@
 :root {
-    --main-bg-color: #5A5A66;
-    --nav-color: #2D2A32;
-    --search-bg-color: #121420;
-    --card-number-color: #66101F;
-    --text-color: #FFFBFC;
+    --main-bg-color: #54494B;
+    --nav-color: #86615C;
+    --search-bg-color: #FFEEF2;
+    --card-number-color: #0D1321;
 }
 
 html,
@@ -14,7 +13,6 @@ body {
     padding: 0;
     overflow-x: hidden;
     background-color: var(--main-bg-color);
-    scroll-behavior: smooth;
 }
 
 #logo {
@@ -40,7 +38,7 @@ body {
     opacity: .9;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
-    color: var(--text-color);
+    color: ghostwhite;
     position: absolute;
     font-size: 1.5em;
     text-align: center;
@@ -49,16 +47,12 @@ body {
 }
 
 .card-img-top {
-    width: 80%;
+    width: 85%;
     padding: 5px;
 }
 
 .search-cards {
-    animation: fadeIn 3s ease-in;
-}
-
-.emptyCard {
-    color: var(--text-color);
+    animation: fadeIn 1.25s ease-in;
 }
 
 
@@ -85,12 +79,12 @@ body {
 .info-number {
     background-color: var(--card-number-color);
     opacity: .9;
-    border-top-left-radius: 5px;
+    border-top-left-radius: 7px;
     border-bottom-right-radius: 7px;
     color: ghostwhite;
     font-size: 1.2em;
     text-align: center;
-    bottom: -18px;
+    bottom: -16px;
     margin: 0px;
     width: 3em;
 }
@@ -167,7 +161,7 @@ nav:nth-child(1) {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
-    color: var(--text-color);
+    color: var(--search-bg-color);
     font-size: 1.3em;
     float: left;
 }
@@ -188,10 +182,6 @@ nav:nth-child(1) {
     padding-bottom: 0px;
     margin-bottom: 0px;
     width: 100%;
-}
-
-.h-90 {
-    height: 90%!important;
 }
 
 .tip {
@@ -287,7 +277,6 @@ nav:nth-child(1) {
     margin-right: 1px!important;
     margin-bottom: 1%;
     margin-top: 2px;
-    background-color:red;
 }
 
 .row {
