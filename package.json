@@ -45,7 +45,7 @@
     "install": "^0.13.0",
     "mongoose": "^4.4.6",
     "mtgsdk": "^0.4.2",
-    "npm": "^6.11.3",
+    "npm": "^6.14.6",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.8.3"
   },
