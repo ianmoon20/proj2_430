@@ -47,7 +47,7 @@
     "mtgsdk": "^0.4.2",
     "npm": "^6.11.3",
     "serve-favicon": "^2.3.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
